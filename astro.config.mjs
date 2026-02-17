@@ -8,25 +8,22 @@ export default defineConfig({
   base: "/site",
   integrations: [
     starlight({
-      title: "My Docs",
+      title: "Szoftverrendszerek tervezése",
       social: [
         {
           icon: "github",
           label: "GitHub",
-          href: "https://github.com/withastro/starlight",
+          href: "https://github.com/unideb-advanced-software-engineering/site",
         },
       ],
       sidebar: [
         {
-          label: "Guides",
-          items: [
-            // Each item here is one entry in the navigation menu.
-            { label: "Example Guide", slug: "guides/example" },
-          ],
+          label: "Gyakorlatok",
+          autogenerate: { directory: "classes" },
         },
         {
-          label: "Reference",
-          autogenerate: { directory: "reference" },
+          label: "Esettanulmányok",
+          autogenerate: { directory: "scenarios" },
         },
       ],
     }),
