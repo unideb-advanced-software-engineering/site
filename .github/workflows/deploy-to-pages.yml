@@ -1,0 +1,52 @@
+name: Deploy to Pages
+
+on:
+  push:
+    branches: ["main"]
+
+  # Can deploy manually as well, from the Actions tab.
+  workflow_dispatch:
+
+# Define a limited set of permissions.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install, build, upload
+        uses: withastro/action@v5
+        with:
+          path: .
+          node-version: 24
+          package-manager: pnpm@latest
+          build-cmd: pnpm run build
+
+  deploy:
+    needs: [build]
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
