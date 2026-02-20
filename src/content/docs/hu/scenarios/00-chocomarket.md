@@ -1,6 +1,7 @@
 ---
 title: "00: ChocoMarket"
 description: "Csokoládékészletező platform."
+prev: false
 ---
 
 ## Háttér

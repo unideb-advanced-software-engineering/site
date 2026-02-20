@@ -1,0 +1,112 @@
+---
+title: "02: Követelmények"
+description: "Követelmények besorolása, minőségi jellemzők, architekturális karakterisztikák"
+prev: false
+---
+
+{% aside title="Projektmunka kimenetek" icon="add-document" %}
+Az esettanulmányok kiosztása a csoportoknak.
+
+Konkrét dokumentáció előállítása nem történt és házi feladatként sem szükséges.
+{% /aside %}
+
+{% aside type="caution" title="Házi feladat" icon="laptop" %}
+- A csoport esettanulmányának áttekintése.
+- Az [IEEE SRS sablon](/site/srs-template.doc) áttekintése.
+{% /aside %}
+
+
+{% linkcard
+   title="Forrásgyűjtemény: Követelmények"
+   href="/site/hu/general/sources/#követelmények"
+   description="Ugrás a kapcsolódó forrásokhoz." /%}
+
+## Ismerkedés a követelményekkel
+
+Az óra első felében a követelmények fogalmával, a követelmények osztályozási rendszereivel foglalkoztunk.
+
+### Hagyományos megközelítés
+
+Röviden megemlítettük a hagyományos megközelítést:
+- Funkcionális követelmények.
+  > These are statements of services the system should provide, how the system should react to particular inputs, and how the system should behave in particular situations. In some cases, the functional requirements may also explicitly state what the system should not do.
+  >
+  > *Sommerville: Software Engineering, 10th Edition*
+- Nem funkcionális követelmények.
+  > These are constraints on the services or functions offered by the system. They include timing constraints, constraints on the development process, and constraints imposed by standards. Non-functional requirements often apply to the system as a whole rather than individual system features or services.
+  >
+  > *Sommerville: Software Engineering, 10th Edition*
+
+### Architecturálisan szignifikáns követelmények
+
+Majd pedig hamarosan folytattuk egy modernebb megközelítéssel, az architecturálisan szignifikáns követelmények (architecturally significant requirement, ASR) bevezetésével.
+
+Nyilvánvaló, hogy a követelmények mindegyike releváns a megfelelő rendszer elkészítéséhez. Ugyanakkor a követelmények között vannak olyanok, melyek jelentőségüket tekintve kiemelkednek, és az architektúrát is közvetlenül befolyásolják. Ezek lesznek az ASR-ek.
+
+> An architecturally significant requirement, or ASR, is any requirement that strongly influences our choice of structures for the architecture. 
+>
+> *Keeling: Design It!*
+
+A követelmények funkcionális/nem funkcionális osztályozásához képest az ASR-ek egy praktikusabb megközelítést kínálnak: segítsgükkel csökkenthetjük a zajt, és a fókuszba emelhetjük azokat a követelményeket, melyek valóban alapvetően meghatározzák az architekturát.
+
+#### ASR kritériumok
+
+Már eleve az ASR fogalmát elég nehezen megfoghatónak érezhetjük. Magánál a fogalomnál azonban még szubjektívebb, hogy pontosan milyen kritériumok alapján lesz egy követelményből ASR.
+
+Ezzel kapcsolatban az alábbi gyűjtéseket érdemes áttekinteni:
+  - [Olaf Zimmermann: Architectural Significance Criteria and Some Core Decisions Required](https://ozimmer.ch/practices/2020/09/24/ASRTestECSADecisions.html)
+  - > It is the software architect’s responsibility to identify requirements with architectural significance. You’ll do this by thinking about four categories of requirements:
+    > - **Constraints**. Unchangeable design decisions, usually given, sometimes chosen.
+    > - **Quality Attributes**. Externally visible properties that characterize how the system operates in a specific context.
+    > - **Influential Functional Requirements**. Features and functions that require special attention in the architecture.
+    > - **Other Influencers**. Time, knowledge, experience, skills, office politics, your own geeky biases, and all the other stuff that sways your decision making.
+    >
+    > *Keeling: Design It!*
+  
+Ahogy az architekturális tervezés sok területén, itt sincs egy helyes, tökéletes módszer. Érdemes felkutatni, hogy mások milyen kritériumrendszereket használnak, majd azok alapján, felhasználva a saját (egyéni és szervezeten belüli) tapasztalatainkat, készíteni egyet. 
+
+### Minőségi jellemzők
+
+A követelményeinkből (kiváltképp a nem funkcionális követelményekből és az ASR-ekből) levezethetünk minőségi jellemzőket (quality attributes). Ezek olyan tulajdonságok, mint például a *megbízhatóság*, a *skálázhatóság*, vagy a *hatékonyság* (angolul *-ilities*).
+
+> Quality attributes describe externally visible properties of a software system and the expectations for that system’s operation. Quality attributes define how well a system should perform some action. These -ilities of the system are sometimes called quality requirements.
+>
+> *Keeling: Design It!* 
+
+A minőségi jellemzőknek számos felsorolása létezik, mint például:
+- [ISO/IEC 25010](https://www.iso.org/standard/78176.html)
+- [Arc42 Quality Model](https://quality.arc42.org/)
+
+A minőségi jellemzők megállapításának egy félig-meddig strukturált módját jelentik a szcenáriók:
+
+> We use a quality attribute scenario to provide an
+unambiguous description of a quality attribute.
+>
+> Quality attribute scenarios describe how the software system is expected to operate within a certain environmental context. There is a functional component to each scenario—stimulus and response—just like any feature. Quality attributes scenarios differ from functional requirements since they qualify the response using a response measure. It is not enough just to correctly respond. How the system responds is also important. 
+>
+> *Keeling: Design It!* 
+
+### Architekturális karakterisztikák
+
+A minőségi jellemzők priorizálával (avagy eleve az ASR-ek által generált minőségi jellemzőkből) kaphatjuk az igazán fontos jellemzőket, melyeket architekturális karakterisztikáknak (architecture characteristics) nevezünk.
+
+> An architecture characteristic meets three criteria:
+> - Specifies a nondomain design consideration
+> - Influences some structural aspect of the design
+> - Is critical or important to application success
+>
+> *Neal, Ford: Fundamentals of Software Architecture*
+
+Az architekturális karakterisztikák azonosítása azért kulcsfontosságú, mert ezek jelentősen leegyszerűsítik a technológiák, technikák és stílusok kiválasztását. Ha például tudjuk, hogy a követelmények alapján meghatározó minőségi jellemző a skálázhatóság, akkor rögtön leszűkíthejük a megfontolt technológiák sorát azokra, melyek támogatják e jellemzőt. 
+
+## Ismerkedés az esettanulmányokkal
+
+A gyakorlat második felében az esettanulmányokkal foglalkoztunk:
+- Előbb csapatokat alkottunk.
+- Ezt követően átfutottuk az esettanulmányokat.
+- Végül összerendeltük a csoportokat és az esettanulmányokat.
+
+{% linkcard
+   title="Esettanulmányok"
+   href="/site/hu/scenarios/00-chocomarket.md"
+   description="A projektmunka alapját képező esettanulmányok leírásai." /%}
