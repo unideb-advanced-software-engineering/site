@@ -1,0 +1,112 @@
+---
+title: "02: Requirements"
+description: "Classification of requirements, quality characteristics, architectural characteristics"
+prev: false
+---
+
+{% aside title="Project work outputs" icon="add-document" %}
+Assigning case studies to groups.
+
+No specific documentation was produced, nor is it required as homework.
+{% /aside %}
+
+{% aside type="caution" title="Homework" icon="laptop" %}
+- Review your group's case study.
+- Review the [IEEE SRS template](/site/srs-template.doc).
+{% /aside %}
+
+
+{% linkcard
+   title="Sources: Requirements"
+   href="/site/en/general/sources/#requirements"
+   description="Go to the related sources." /%}
+
+## Introduction to requirements
+
+In the first half of the lesson, we dealt with the concept of requirements and classification systems for requirements.
+
+### Traditional approach
+
+We briefly mentioned the traditional approach:
+- Functional requirements.
+  > These are statements of services the system should provide, how the system should react to particular inputs, and how the system should behave in particular situations. In some cases, the functional requirements may also explicitly state what the system should not do.
+  >
+  > *Sommerville: Software Engineering, 10th Edition*
+- Non-functional requirements.
+  > These are constraints on the services or functions offered by the system. They include timing constraints, constraints on the development process, and constraints imposed by standards. Non-functional requirements often apply to the system as a whole rather than individual system features or services.
+  >
+  > *Sommerville: Software Engineering, 10th Edition*
+
+### Quality attributes
+
+From the problem statement, we can derive quality attributes. These are properties such as *reliability*, *scalability*, or *efficiency* (*-ilities*).
+
+> Quality attributes describe externally visible properties of a software system and the expectations for that system’s operation. Quality attributes define how well a system should perform some action. These -ilities of the system are sometimes called quality requirements.
+>
+> *Keeling: Design It!*
+
+There are numerous lists of quality attributes, such as:
+- [ISO/IEC 25010](https://www.iso.org/standard/78176.html)
+- [Arc42 Quality Model](https://quality.arc42.org/)
+
+Scenarios represent a semi-structured method for determining quality characteristics:
+
+> We use a quality attribute scenario to provide an
+unambiguous description of a quality attribute.
+>
+> Quality attribute scenarios describe how the software system is expected to operate within a certain environmental context. There is a functional component to each scenario—stimulus and response—just like any feature. Quality attributes scenarios differ from functional requirements since they qualify the response using a response measure. It is not enough just to correctly respond. How the system responds is also important.
+>
+> *Keeling: Design It!*
+
+### Architecturally Significant Requirements
+
+The modern approach to classifying requirements is represented by architecturally significant requirements (ASR).
+
+It is obvious that all requirements and quality attributes are relevant to the development of the appropriate system. However, among these, there are some that stand out in terms of their significance and directly influence the architecture. These will be the ASRs.
+
+> An architecturally significant requirement, or ASR, is any requirement that strongly influences our choice of structures for the architecture.
+>
+> *Keeling: Design It!*
+
+Compared to the functional/non-functional classification of requirements, ASRs offer a more practical approach: they help reduce noise and focus on the requirements and quality characteristics (even through scenarios) that truly define the architecture.
+
+#### ASR criteria
+
+The concept of ASR can be quite difficult to grasp. However, even more subjective than the concept itself is the question of exactly what criteria determine when a requirement becomes an ASR.
+
+In this regard, it is worth reviewing the following collections:
+  - [Olaf Zimmermann: Architectural Significance Criteria and Some Core Decisions Required](https://ozimmer.ch/practices/2020/09/24/ASRTestECSADecisions.html)
+  - > It is the software architect’s responsibility to identify requirements with architectural significance. You’ll do this by thinking about four categories of requirements:
+    > - **Constraints**. Unchangeable design decisions, usually given, sometimes chosen.
+    > - **Quality Attributes**. Externally visible properties that characterize how the system operates in a specific context.
+    > - **Influential Functional Requirements**. Features and functions that require special attention in the architecture.
+    > - **Other Influencers**. Time, knowledge, experience, skills, office politics, your own geeky biases, and all the other stuff that sways your decision making.
+    >
+    > *Keeling: Design It!*
+
+As in many areas of architectural design, there is no single correct or perfect method. It is worth researching the criteria systems used by others and then, based on these and our own (individual and organizational) experience, developing our own.
+
+### Architectural characteristics
+
+By prioritizing quality attributes, we can obtain the key attributes that we refer to as architecture characteristics.
+
+> An architecture characteristic meets three criteria:
+> - Specifies a nondomain design consideration
+> - Influences some structural aspect of the design
+> - Is critical or important to application success
+>
+> *Neal, Ford: Fundamentals of Software Architecture*
+
+Identifying architectural characteristics is particularly important because they greatly simplify the selection of technologies, techniques, and styles. For example, if we know that scalability is a key quality requirement, we can immediately narrow down the range of technologies under consideration to those that support this feature.
+
+## Getting acquainted with case studies
+
+In the second half of the exercise, we worked on case studies:
+- First, we formed teams.
+- Then we reviewed the case studies.
+- Finally, we assigned each team a case study.
+
+{% linkcard
+   title="Case studies"
+   href="/site/hu/scenarios/00-chocomarket.md"
+   description="Descriptions of case studies forming the basis of the project work." /%}
