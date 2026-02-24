@@ -37,17 +37,38 @@ Röviden megemlítettük a hagyományos megközelítést:
   >
   > *Sommerville: Software Engineering, 10th Edition*
 
-### Architecturálisan szignifikáns követelmények
+### Minőségi jellemzők
 
-Majd pedig hamarosan folytattuk egy modernebb megközelítéssel, az architecturálisan szignifikáns követelmények (architecturally significant requirement, ASR) bevezetésével.
+A problémánkból levezethetünk minőségi jellemzőket (quality attributes). Ezek olyan tulajdonságok, mint például a *megbízhatóság*, a *skálázhatóság*, vagy a *hatékonyság* (angolul *-ilities*).
 
-Nyilvánvaló, hogy a követelmények mindegyike releváns a megfelelő rendszer elkészítéséhez. Ugyanakkor a követelmények között vannak olyanok, melyek jelentőségüket tekintve kiemelkednek, és az architektúrát is közvetlenül befolyásolják. Ezek lesznek az ASR-ek.
-
-> An architecturally significant requirement, or ASR, is any requirement that strongly influences our choice of structures for the architecture. 
+> Quality attributes describe externally visible properties of a software system and the expectations for that system’s operation. Quality attributes define how well a system should perform some action. These -ilities of the system are sometimes called quality requirements.
 >
 > *Keeling: Design It!*
 
-A követelmények funkcionális/nem funkcionális osztályozásához képest az ASR-ek egy praktikusabb megközelítést kínálnak: segítsgükkel csökkenthetjük a zajt, és a fókuszba emelhetjük azokat a követelményeket, melyek valóban alapvetően meghatározzák az architekturát.
+A minőségi jellemzőknek számos felsorolása létezik, mint például:
+- [ISO/IEC 25010](https://www.iso.org/standard/78176.html)
+- [Arc42 Quality Model](https://quality.arc42.org/)
+
+A minőségi jellemzők megállapításának egy félig-meddig strukturált módját jelentik a szcenáriók:
+
+> We use a quality attribute scenario to provide an
+unambiguous description of a quality attribute.
+>
+> Quality attribute scenarios describe how the software system is expected to operate within a certain environmental context. There is a functional component to each scenario—stimulus and response—just like any feature. Quality attributes scenarios differ from functional requirements since they qualify the response using a response measure. It is not enough just to correctly respond. How the system responds is also important.
+>
+> *Keeling: Design It!*
+
+### Architecturálisan szignifikáns követelmények
+
+A követelmények osztályozásának modernebb megközelítését jelentik az architecturálisan szignifikáns követelmények (architecturally significant requirement, ASR).
+
+Nyilvánvaló, hogy a követelmények és minőségi jellemzők mindegyike releváns a megfelelő rendszer elkészítéséhez. Ugyanakkor ezek között vannak olyanok, melyek jelentőségüket tekintve kiemelkednek, és az architektúrát is közvetlenül befolyásolják. Ezek lesznek az ASR-ek.
+
+> An architecturally significant requirement, or ASR, is any requirement that strongly influences our choice of structures for the architecture.
+>
+> *Keeling: Design It!*
+
+A követelmények funkcionális/nem funkcionális osztályozásához képest az ASR-ek egy praktikusabb megközelítést kínálnak: segítsgükkel csökkenthetjük a zajt, és a fókuszba emelhetjük azokat a követelményeket és minőségi jellemzőket (akár szcenáriókon keresztül), melyek valóban alapvetően meghatározzák az architekturát.
 
 #### ASR kritériumok
 
@@ -62,33 +83,12 @@ Ezzel kapcsolatban az alábbi gyűjtéseket érdemes áttekinteni:
     > - **Other Influencers**. Time, knowledge, experience, skills, office politics, your own geeky biases, and all the other stuff that sways your decision making.
     >
     > *Keeling: Design It!*
-  
-Ahogy az architekturális tervezés sok területén, itt sincs egy helyes, tökéletes módszer. Érdemes felkutatni, hogy mások milyen kritériumrendszereket használnak, majd azok alapján, felhasználva a saját (egyéni és szervezeten belüli) tapasztalatainkat, készíteni egyet. 
 
-### Minőségi jellemzők
-
-A követelményeinkből (kiváltképp a nem funkcionális követelményekből és az ASR-ekből) levezethetünk minőségi jellemzőket (quality attributes). Ezek olyan tulajdonságok, mint például a *megbízhatóság*, a *skálázhatóság*, vagy a *hatékonyság* (angolul *-ilities*).
-
-> Quality attributes describe externally visible properties of a software system and the expectations for that system’s operation. Quality attributes define how well a system should perform some action. These -ilities of the system are sometimes called quality requirements.
->
-> *Keeling: Design It!* 
-
-A minőségi jellemzőknek számos felsorolása létezik, mint például:
-- [ISO/IEC 25010](https://www.iso.org/standard/78176.html)
-- [Arc42 Quality Model](https://quality.arc42.org/)
-
-A minőségi jellemzők megállapításának egy félig-meddig strukturált módját jelentik a szcenáriók:
-
-> We use a quality attribute scenario to provide an
-unambiguous description of a quality attribute.
->
-> Quality attribute scenarios describe how the software system is expected to operate within a certain environmental context. There is a functional component to each scenario—stimulus and response—just like any feature. Quality attributes scenarios differ from functional requirements since they qualify the response using a response measure. It is not enough just to correctly respond. How the system responds is also important. 
->
-> *Keeling: Design It!* 
+Ahogy az architekturális tervezés sok területén, itt sincs egy helyes, tökéletes módszer. Érdemes felkutatni, hogy mások milyen kritériumrendszereket használnak, majd azok alapján, felhasználva a saját (egyéni és szervezeten belüli) tapasztalatainkat, készíteni egyet.
 
 ### Architekturális karakterisztikák
 
-A minőségi jellemzők priorizálával (avagy eleve az ASR-ek által generált minőségi jellemzőkből) kaphatjuk az igazán fontos jellemzőket, melyeket architekturális karakterisztikáknak (architecture characteristics) nevezünk.
+A minőségi jellemzők priorizálával kaphatjuk azokat a kulcsfontosságú jellemzőket, melyeket architekturális karakterisztikáknak (architecture characteristics) nevezünk.
 
 > An architecture characteristic meets three criteria:
 > - Specifies a nondomain design consideration
@@ -97,7 +97,7 @@ A minőségi jellemzők priorizálával (avagy eleve az ASR-ek által generált 
 >
 > *Neal, Ford: Fundamentals of Software Architecture*
 
-Az architekturális karakterisztikák azonosítása azért kulcsfontosságú, mert ezek jelentősen leegyszerűsítik a technológiák, technikák és stílusok kiválasztását. Ha például tudjuk, hogy a követelmények alapján meghatározó minőségi jellemző a skálázhatóság, akkor rögtön leszűkíthejük a megfontolt technológiák sorát azokra, melyek támogatják e jellemzőt. 
+Az architekturális karakterisztikák azonosítása azért különösen fontos, mert ezek jelentősen leegyszerűsítik a technológiák, technikák és stílusok kiválasztását. Ha például tudjuk, hogy a követelmények alapján meghatározó minőségi jellemző a skálázhatóság, akkor rögtön leszűkíthejük a megfontolt technológiák sorát azokra, melyek támogatják e jellemzőt.
 
 ## Ismerkedés az esettanulmányokkal
 
