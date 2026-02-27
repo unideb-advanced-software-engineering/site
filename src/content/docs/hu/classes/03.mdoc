@@ -1,7 +1,6 @@
 ---
 title: "03: Követelmények, csoportmunka"
 description: "Követelmények besorolása, minőségi jellemzők, architekturális karakterisztikák"
-next: false
 ---
 
 {% aside title="Projektmunka kimenetek" icon="add-document" %}
@@ -41,7 +40,90 @@ A kimeneteket a csoport GitHub tárolójában az alábbi módon kell elhelyezni:
 - srs.doc Az esettanulmány alapján kitöltött SRS.
 {% /filetree %}
 
-{% linkcard title="GitHub" href="https://github.com/unideb-advanced-software-engineering" /%}
+A fájlokkal kapcsolatos elvárások az alábbiak.
+
+{% aside type="tip" %}
+Inspirálódjatok a példa esettanulmány [GitHub tárolójából](https://github.com/unideb-advanced-software-engineering/26-tavasz-00-chocomarket)!
+{% /aside %}
+
+### SRS
+
+Az SRS első három fejezetét töltsétek ki értelemszerűen, az esettanulmány leírásának megfelelően:
+- Introduction.
+- Overall Description.
+- External Interface Requirements.
+
+#### System Features
+
+Az igazán érdekes részek ezek után következnek! Elsőként a negyedik fejezet, a System Features. Itt kell felsorolnotok a rendszerrel szemben támasztott funkcionális követelményeket, területek/nagyobb funkciók szerint szétbontva. Ezeket a követelményeket az esettanulmányotok **Követelmények** című részéből vezethetitek le (tekintettel léve a **Kiegészítések** részre is).
+
+Ügyeljetek arra, hogy ne próbáljatok meg egy követelménnyel túl sokat leírni: törekedjetek inkább apróbb, atomi pontokra.
+
+{% aside type="tip" %}
+Nyugodtan gondoljátok tovább az esettanulmányban leírtakat; legyetek kreatívak!
+
+Ha a követelmények között csak annyi szerepel, hogy „Webes felület ehhez és ahhoz”, akkor bátran ötleteljetek, hogy ezen a webes felületen pontosan mit is lehet csinálni.
+{% /aside %}
+
+#### Other Nonfunctional Requirements
+
+Ezt követi az Other Nonfunctional Requirements című fejezet. Ebben az első három alfejezet kitöltése viszonylag értelemszerű, az igazi izgalmakat a Software Quality Attributes című alfejezet tartogatja.
+
+Itt gondoljátok végig, hogy az esettanulmányotok, valamint az előzőleg leírt/feltárt követelmények milyen minőségi jellemzőket implikálnak. Ha nem jutnak eszetekbe minőségi jellemzők, akkor csak böngésszétek át az [Arc42 Quality Model katalógusát](https://quality.arc42.org/qualities/). Itt szuper példákat is találtok!
+
+A minőségi jellemzők leírásához használhattok nem funkcionális követelményeket vagy minőségi szcenáriókat (Quality Scenario) is. Az utóbbiak felépítése az alábbi:
+- **Forrás**: Aki a rendszerrel interakcióba lép.
+- **Stimulus**: A hatás, mely a rendszert valamilyen válaszra készteti.
+- **Érintett pontok**: A rendszernek azok a specifikus részei, melyeket a hatás érint. Ha nem lehet ilyenekt körülhatárolni, akkor ez lehet az egész rendszer is.
+- **Válasz**: Amiket a rendszer csinál a stimulusra válaszul. Több különféle válasz is lehetséges.
+- **Metrikák**: Mind a nem funkcionális követelmények, mind a szcenáriók esetén fontos a mérhetőség. Itt azt fogalmazzuk meg, hogy a rendszer válaszának minősége hogyan mérhető.
+
+Ha nem szeretnétek a fenti strukturált változatot használni, akkor egy egyszerűbb, kétmondatos formát is választhattok:
+
+> Valaki (forrás) csinál valamit (stimulus) a rendszer adott pontján (érintett pontok), aminek hatására valami történik (válasz). A válaszadás így történik (metrikák).
+
+Például:
+
+> A beszállító megadja az új beolvasási konfigurációt a készletbeolvasási alrendszerben, melynek hatására
+>
+> - amennyiben helyes a konfiguráció, elmentjük és rögtön le is kérdezzük a készletet,
+> - amennyiben helytelen a konfiguráció, akkor értesítjük a felhasználót.
+>
+> A beolvasási konfiguráció beállítása után az új beolvasás legfeljebb néhány percet vesz igénybe.
+
+### Architekturális karakterisztikák
+
+Ha készen vagytok az SRS-sel, akkor következhet a legfontosabb minőségi jellemzők, az úgynevezett [architekturális karakterisztikák](../02/#architekturális-karakterisztikák) azonosítása.
+
+Gondoljátok végig, hogy melyik az a három-négy (lehet több is, de ennyi mindenképpen legyen) minőségi jellemző, mely tényleg az esettanulmány, a probléma középpontjában áll.
+
+Ha például az esettanulmányotok egy valósidejű csevegőalkalmazásról szól, akkor egészen biztosan kulcsfontosságú jellemző az [alacsony késleltetés](https://quality.arc42.org/qualities/latency). Ez fogja áthatni az egész architektúrát, az összes döntést. Ezzel szemben a [biztonság](https://quality.arc42.org/qualities/security) csak akkor lesz architekturális karakterisztika, ha ez nem egy hétköznapi csevegőalkalmazás, hanem valami olyasmi, mint például a [Signal](https://signal.org/).
+
+A karakterisztikák mindegyikét indokoljuk is!
+
+### Architekturálisan szignifikáns követelmények
+
+Ha az architekturális karakterisztikák is megvannak, akkor már csak egy lépés van hátra: azonosítani azokat a funkcionális követelményeket és kötöttségeket, melyek kihatnak a rendszer egészére. Ezek lesznek, az előzőleg azonosított karakterisztikákkal együtt az [ASR-ek](../02/#architecturálisan-szignifikáns-követelmények).
+
+Amikor a funkcionális követelmények közül kell szelektálni, akkor használjátok az [ASR kritériumokat](../02/#asr-kritériumok). Természetesen tetszőleges, saját kritériumrendszer is működhet, csak álljon stabil lábakon az indoklás.
+
+Végül a kötöttségek, preferenciák következnek. Ilyenek lehetnek például az alábbiak:
+- A fejlesztőcsapat az X technológiát ismeri, ezért érdemes erre építeni.
+- A rendszert 3 hónapon belül ki kell rakni a piacra.
+- A rendszernek együtt kell működnie X cég Y szolgáltatásával/termékével.
+- A CTO kedvenc technológiája X, ezért ezt muszáj használni (nem vicc).
+
+Az ASR-ek mindegyikét indokolni kell!
+
+{% aside type="caution" %}
+Nem kell tökéletes követelményeket, szcenáriókat, minőségi jellemzőket, összességében tökéletes SRS-t és egyéb dokumentumokat készíteni.
+
+A lényeg, hogy legyen egy alap, amiből már ki tudunk indulni. Ahogy a szoftverfejlesztésben annyi minden, úgy az architekturális tervezés is egy iteratív folyamat: van lehetőség vissza-visszatérni,és finomítani, javítani a korábbi munkát.
+
+Törekedjetek arra, hogy mindenekelőtt a karakterisztikák és az ASR-ek legyenek jól azonosítva.
+{% /aside %}
+
+{% linkcard title="ChocoMarket GitHub tároló" href="https://github.com/unideb-advanced-software-engineering/26-tavasz-00-chocomarket" /%}
 
 {% linkcard
    title="Esettanulmányok"
