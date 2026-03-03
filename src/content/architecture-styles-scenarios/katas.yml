@@ -1,0 +1,95 @@
+katas:
+  - id: 1
+    title: "ShopTheDrop"
+    description: "Egy kisebb e-kereskedő márka limitált készletű villámakciókat („dropokat”) futtat, amelyek rövid, extrém forgalmi csúcsokat okoznak."
+    users:
+      - "Vásárlók"
+      - "Ügyfélszolgálat"
+      - "Raktári dolgozók"
+    requirements:
+      - "Általában minimális terhelés, azonban 5-10 perces extrém forgalmi kiugrások lehetnek."
+      - "Nem lehet sem elveszett, sem kifizetetlen rendelés."
+      - "Nem lehet több elemet eladni, mint amennyi készleten van."
+    additional_context:
+      - "A fejlesztőcsapat két főből áll."
+      - "A költségkeret szűk."
+      - "Elfogadható, ha a rendelés ~1 percig „függő” állapotban van."
+    solutions:
+      - style: "Eseményvezérelt (Event-Driven)"
+        justification: "A csúcsok pufferelése sorral; események kibocsátása (OrderPlaced, PaymentAuthorized), a háttérfolyamatok aszinkron feldolgozása újrapróbálással és auditálhatósággal."
+      - style: "Szolgáltatás-alapú (Service-Based)"
+        justification: "Néhány durva szemcséjű szolgáltatás (Checkout, Katalógus, Teljesítés) — jobb izoláció és skálázás mikroszolgáltatásos overhead nélkül."
+      - style: "Moduláris monolit (Modular Monolith)"
+        justification: "Egyszerű üzemeltetés kis csapatnak; tiszta modulok és belső aszinkron feldolgozás a csúcsok kezelésére."
+      - style: "Tér-alapú (Space-Based)"
+        justification: "Technikailag erős rövid csúcsokra: elosztott in-memory állapot csökkenti az adatbázis-kontenciót, de drága/komplex lehet."
+    optional_twist:
+      - "A fizetési szolgáltató néha 30–60 másodperc alatt válaszol."
+
+  - id: 2
+    title: "DeBi"
+    description: "Valós idejű térkép a bringa- és állomás-elérhetőségről. Az állomások gyakran küldenek frissítéseket, azonban néha offline állapotba kerülhetnek."
+    users:
+      - "Bringások"
+      - "Városi üzemeltetők"
+      - "Karbantartók"
+    requirements:
+      - "A térkép valós időben jelenítse meg a bringák elérhetőségét."
+      - "Az alkalmazás csúcsidőben is maradjon reszponzív."
+      - "Legyenek elérhetők történeti adatok későbbi analitikához."
+    additional_context:
+      - "Ha egy állomás offline, utána a frissítések késve és nem időrendben érkezhetnek."
+    optional_twist:
+      - "A publikus API-fogyasztók másodpercenként frissítenek, milliós kérésszámmal."
+
+  - id: 3
+    title: "GetMeOut"
+    description: "Egy felhasználóhoz tartozó összes személyes adat összegyűjtése és exportja sok belső (köztük legacy) rendszerből, forrásmegjelöléssel."
+    users:
+      - "Adatvédelmi felelősök"
+      - "Adminisztrátorok"
+      - "Végfelhasználók (közvetve)"
+    requirements:
+      - "Az exportnak legkésőbb 24 órán belül el kell készülnie, de inkább néhány órán belül."
+      - "A jelentésnek helyesnek és teljesnek kell lennie."
+      - "Kapcsolódni kell olyan rendszerekhez is, melyek módosítására nincs lehetőség."
+    additional_context:
+      - "A rendszer folyamatosan újabb és újabb komponensekkel bővül, melyek aztán exportot igényelnek."
+    optional_twist:
+      - "Néhány rendszer csak éjszakai batch fájlokon keresztül szolgáltat adatot."
+
+  - id: 4
+    title: "InfluPay"
+    description: "Tartalomkészítőket kifizető platform, mely hetente fizet a megtekintések/előfizetések alapján."
+    users:
+      - "Tartalomkészítők"
+      - "Pénzügy"
+      - "Ügyfélszolgálat"
+      - "Auditorok"
+    requirements:
+      - "Heti kifizetés, auditálható módon."
+      - "A megtekintések és előfizetések adatai késve érkezhetnek (akár hetekkel később)."
+      - "Hibás számítások esetén sztornózás és újrafizetés."
+    additional_context:
+      - "Auditok: „Miért pont ennyi lett a kifizetés?”."
+    optional_twist:
+      - "A készítők vitathatják a kifizetést; részletes idővonalat kell mutatni."
+
+  - id: 5
+    title: "DeadNation"
+    description: "Jegyértékesítés a világ legnagyobb előadóinak koncertjeire."
+    users:
+      - "Jegyvásárlók"
+      - "Ügyfélszolgálat"
+      - "Helyszíni üzemeltetés"
+    requirements:
+      - "Érdeklődők tízezrei."
+      - "Extrém csúcsok kezelése 5–15 percig összeomlás nélkül."
+      - "Ugyanazt a széket nem lehet kétszer eladni."
+      - "„Szék tartása N percig”, majd automatikus felszabadítás, ha nincs fizetés."
+      - "Gyors visszajelzés és „majdnem élő” ülés-térkép."
+    additional_context:
+      - "Jelentős költségkeret."
+      - "A fizetési szolgáltató válaszai késhetnek."
+    optional_twist:
+      - "A roham alatt 10 másodpercenként frissített dinamikus árazás."

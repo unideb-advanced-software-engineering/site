@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import AnchorHeading from '@astrojs/starlight/components/AnchorHeading.astro';
+import { LinkCard } from '@astrojs/starlight/components';
+
+const slugify = (value: string) =>
+	value
+		.normalize('NFKD')
+		.replace(/[\u0300-\u036f]/g, '')
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, '-')
+		.replace(/^-+|-+$/g, '');
+
+const katas = (await getCollection('architectureStylesScenarioKatas')).sort(
+	(a, b) => a.data.id - b.data.id
+);
+
+const kataSections = katas.map((kata) => {
+	const headingId = `kata-${kata.data.id}-${slugify(kata.data.title)}`;
+
+	return {
+		...kata,
+		headingId,
+	};
+});
+
+const frontmatter = {
+	title: 'Esettanulmányok az architekturális stílusok gyakorlathoz',
+};
+
+const headings = kataSections.map((kata) => ({
+	depth: 2,
+	slug: kata.headingId,
+	text: kata.data.title,
+}));
+---
+
+<StarlightPage frontmatter={frontmatter} headings={headings}>
+    <LinkCard title="04: Architekturális stílusok" href="/site/hu/classes/04" description="A kapcsolódó gyakorlat megtekintése." />
+
+	{
+		kataSections.map((kata, index) => (
+			<section>
+				<AnchorHeading level={2} id={kata.headingId}>
+					{`0${index + 1} ${kata.data.title}`}
+				</AnchorHeading>
+
+				<p>{kata.data.description}</p>
+
+				<p><strong>Felhasználók</strong></p>
+				<ul>
+					{kata.data.users.map((user) => (
+						<li>{user}</li>
+					))}
+				</ul>
+
+				<p><strong>Követelmények</strong></p>
+				<ul>
+					{kata.data.requirements.map((requirement) => (
+						<li>{requirement}</li>
+					))}
+				</ul>
+
+				<p><strong>Kiegészítések</strong></p>
+				<ul>
+					{kata.data.additional_context.map((context) => (
+						<li>{context}</li>
+					))}
+				</ul>
+			</section>
+		))
+	}
+</StarlightPage>
