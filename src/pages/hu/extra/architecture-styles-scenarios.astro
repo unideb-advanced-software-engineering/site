@@ -27,6 +27,7 @@ const kataSections = katas.map((kata) => {
 
 const frontmatter = {
 	title: 'Esettanulmányok az architekturális stílusok gyakorlathoz',
+	description: 'Esettanulmányok az architekturális stílusok gyakorlathoz.',
 };
 
 const headings = kataSections.map((kata) => ({
@@ -38,6 +39,13 @@ const headings = kataSections.map((kata) => ({
 
 <StarlightPage frontmatter={frontmatter} headings={headings}>
     <LinkCard title="04: Architekturális stílusok" href="/site/hu/classes/04" description="A kapcsolódó gyakorlat megtekintése." />
+
+    <LinkCard title="Letöltés PDF-ként" href="/site/architecture-styles-scenarios.pdf" description="Az összes esettanulmány letöltése PDF formátumban." target="_blank" />
+
+    <LinkCard
+        title="Architecture Styles Worksheet"
+        href="/site/architecture-styles-worksheet.pdf"
+        target="_blank" />
 
 	{
 		kataSections.map((kata, index) => (
