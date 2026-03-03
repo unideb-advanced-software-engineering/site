@@ -14,15 +14,6 @@ katas:
       - "A fejlesztőcsapat két főből áll."
       - "A költségkeret szűk."
       - "Elfogadható, ha a rendelés ~1 percig „függő” állapotban van."
-    solutions:
-      - style: "Eseményvezérelt (Event-Driven)"
-        justification: "A csúcsok pufferelése sorral; események kibocsátása (OrderPlaced, PaymentAuthorized), a háttérfolyamatok aszinkron feldolgozása újrapróbálással és auditálhatósággal."
-      - style: "Szolgáltatás-alapú (Service-Based)"
-        justification: "Néhány durva szemcséjű szolgáltatás (Checkout, Katalógus, Teljesítés) — jobb izoláció és skálázás mikroszolgáltatásos overhead nélkül."
-      - style: "Moduláris monolit (Modular Monolith)"
-        justification: "Egyszerű üzemeltetés kis csapatnak; tiszta modulok és belső aszinkron feldolgozás a csúcsok kezelésére."
-      - style: "Tér-alapú (Space-Based)"
-        justification: "Technikailag erős rövid csúcsokra: elosztott in-memory állapot csökkenti az adatbázis-kontenciót, de drága/komplex lehet."
     optional_twist:
       - "A fizetési szolgáltató néha 30–60 másodperc alatt válaszol."
 

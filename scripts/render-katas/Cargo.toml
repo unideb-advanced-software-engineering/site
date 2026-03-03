@@ -1,0 +1,12 @@
+[package]
+name = "render-katas"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.98"
+serde = { version = "1.0", features = ["derive"] }
+serde_yaml = "0.9.34"
+typst = "0.14.2"
+typst-kit = { version = "0.14.2", default-features = false, features = ["fonts", "embed-fonts"] }
+typst-pdf = "0.14.2"
