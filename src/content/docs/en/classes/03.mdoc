@@ -1,7 +1,6 @@
 ---
 title: "03: Requirements, group work"
 description: "Classification of requirements, quality characteristics, architectural characteristics"
-next: false
 ---
 
 {% aside title="Project work outputs" icon="add-document" %}
@@ -41,7 +40,90 @@ The outputs should be placed in the group's GitHub repository as follows:
 - srs.doc The SRS filled out based on the case study.
 {% /filetree %}
 
-{% linkcard title="GitHub" href="https://github.com/unideb-advanced-software-engineering" /%}
+The requirements for the files are as follows.
+
+{% aside type="tip" %}
+Get inspiration from the example case study [from GitHub](https://github.com/unideb-advanced-software-engineering/26-spring-00-chocomarket)!
+{% /aside %}
+
+### SRS
+
+Complete the first three chapters of the SRS, in accordance with the case study description:
+- Introduction.
+- Overall Description.
+- External Interface Requirements.
+
+#### System Features
+
+The really interesting parts come next! First, Chapter 4, System Features. Here you need to list the functional requirements for the system, broken down by major functions. You can derive these requirements from the **Requirements** section of your case study (taking into account the **Additions** section as well).
+
+Be careful not to try to describe too much with one requirement: instead, strive for smaller, atomic points.
+
+{% aside type="tip" %}
+Feel free to think further about what is described in the case study; be creative!
+
+If the requirements only state "Web interface for this and that," then feel free to brainstorm what exactly can be done on this web interface.
+{% /aside %}
+
+#### Other Nonfunctional Requirements
+
+This is followed by the chapter entitled **Other Nonfunctional Requirements**. Filling in the first three subsections is relatively straightforward, but the real excitement lies in the subsection entitled **Software Quality Attributes**.
+
+Here, you should think about what quality characteristics are implied by your case study and the previously described/identified requirements. If you can't think of any quality attributes, just browse through the [Arc42 Quality Model catalog](https://quality.arc42.org/qualities/). You'll find some great examples there!
+
+You can also use non-functional requirements or quality scenarios to describe quality characteristics. The latter are structured as follows:
+- **Source**: Who interacts with the system.
+- **Stimulus**: The effect that causes the system to respond in some way.
+- **Points of interest**: The specific parts of the system that are affected by the stimulus. If these cannot be defined, then it could be the entire system.
+- **Response**: What the system does in response to the stimulus. There may be several different responses.
+- **Metrics**: Measurability is important for both non-functional requirements and scenarios. Here we define how the quality of the system's response can be measured.
+
+If you do not want to use the structured version above, you can choose a simpler, two-sentence format:
+
+> Someone (source) does something (stimulus) at a given point in the system (affected points), which causes something to happen (response). The response is as follows (metrics).
+
+For example:
+
+> The supplier enters the new scan configuration in the inventory scan subsystem, which causes
+>
+> - if the configuration is correct, we save it and immediately query the inventory,
+> - if the configuration is incorrect, we notify the user.
+>
+> After setting the scan configuration, the new scan takes no more than a few minutes.
+
+### Architectural characteristics
+
+Once you have finished with the SRS, you can move on to identifying the most important quality characteristics, known as [architectural characteristics](../02/#architectural-characteristics).
+
+Think about which three or four (it can be more, but there should definitely be at least that many) quality characteristics are really at the heart of the case study and the problem.
+
+For example, if your case study is about a real-time chat application, then [low latency](https://quality.arc42.org/qualities/latency) is definitely a key characteristic. This will permeate the entire architecture and all decisions. In contrast, [security](https://quality.arc42.org/qualities/security) will only be an architectural characteristic if this is not an everyday chat application, but something like [Signal](https://signal.org/).
+
+We justify each of these characteristics!
+
+### Architecturally significant requirements
+
+Once the architectural characteristics have been identified, there is only one step left: to identify the functional requirements and constraints that affect the system as a whole. These, together with the previously identified characteristics, will be the [ASRs](../02/#architecturally-significant-requirements).
+
+When selecting from among the functional requirements, use the [ASR criteria](../02/#asr-criteria). Of course, you can also use your own criteria system, as long as the reasoning behind it is sound.
+
+Finally, there are the constraints and preferences. These may include, for example:
+- The development team is familiar with technology X, so it is worth building on that.
+- The system must be launched within 3 months.
+- The system must work with company X's service/product Y.
+- The CTO's favorite technology is X, so it must be used (no joke).
+
+All ASRs must be justified!
+
+{% aside type="caution" %}
+There is no need to create perfect requirements, scenarios, quality characteristics, a perfect SRS, or other documents.
+
+The important thing is to have a foundation from which we can start. Like so many things in software development, architectural design is an iterative process: it is possible to go back and refine and improve previous work.
+
+Strive to ensure that, above all, the characteristics and ASRs are well identified.
+{% /aside %}
+
+{% linkcard title="ChocoMarket GitHub repository" href="https://github.com/unideb-advanced-software-engineering/26-spring-00-chocomarket" /%}
 
 {% linkcard
    title="Case studies"
