@@ -53,8 +53,44 @@ A legutóbbi frissítés dátuma az oldal alján szerepel.
 - Átfogó gyűjtés
   - [Richards, Ford: Fundamentals of Software Architecture](https://fundamentalsofsoftwarearchitecture.com/)
     - Part II
+- Újszerű stílusok
+  - Clean Architecture
+    - Variánsok: Ports and Adapters, Hexagonal, Onion
+    - [Uncle Bob: The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+  - Vertical Slice Architecture
+    - [Jimmy Bogard: Vertical Slice Architecture](https://www.jimmybogard.com/vertical-slice-architecture/)
+    - [Oskar Dudycz: My thoughts on Vertical Slices, CQRS, Semantic Diffusion and other fancy words](https://www.architecture-weekly.com/p/my-thoughts-on-vertical-slices-cqrs)
+  - Citadel Architecture
+    - [DHH:The Majestic Monolith can become The Citadel](https://signalvnoise.com/svn3/the-majestic-monolith-can-become-the-citadel/)
+  - Serverless Architecture
+    - [Mike Roberts: Serverless Architectures](https://martinfowler.com/articles/serverless.html)
+
+Vegyük észre, hogy a fenti, újszerű stílusok gyakran korábbi stílusok újragondolásai:
+- A Clean Architecture a Layered architektúrát finomítja.
+- A Vertical Slice Architecture bizonyos értelemben megfeleltethető a Modular Monolith-nak.
+- A Citadel Architecture tekinthető egy átmenetnek a Modular Monolith és a Service-Based Architecture között.
+
+Illetve lehetnek akár egészen megfoghatatlanok is, mint a Serverless Architecture (mely inkább gyűjtőfogalom, mint konkrét stílus).
 
 {% linkcard
-   title="Esettanulmányok"
-   href="/site/hu/scenarios/00-chocomarket"
-   description="Ugrás a tárgy esettanulmányaihoz." /%}
+   title="04: Architekturális stílusok"
+   href="/site/hu/classes/04"
+   description="Ugrás a kapcsolódó gyakorlathoz." /%}
+
+{% linkcard
+   title="05: Architekturális stílusok"
+   href="/site/hu/classes/05"
+   description="Ugrás a kapcsolódó gyakorlathoz." /%}
+
+## Architekturális minták
+
+Az architekturális stílusok szintje alatt találjuk az architekturális mintákat (egyúttal: vitatható, hogy például az olyan stílusok, mint a Vertical Slice Architecture egyszerűnek mintának számítanak és nem stílusnak).
+
+{% aside type="tip" title="Stílusok és minták" %}
+Míg a **stílusok** a rendszerünk egészének struktúráját diktálják (igen sok mérlegelési lehetőséggel), addig a **minták** alacsonyabb szintű, újrafelhasználható megoldások gyakran felmerülő architekturális problémákra (azaz probléma-megoldás párok).
+{% /aside %}
+
+Az ilyen mintákat, hasonlóan a tervezési mintákhoz, katalógusokban gyűjtik. Ezek közül néhány:
+- [Martin Fowler: Patterns of Enterprise Application Architecture](https://martinfowler.com/eaaCatalog/)
+- [Unmesh Joshi: Patterns of Distributed Systems](https://martinfowler.com/articles/patterns-of-distributed-systems/)
+- [Azure Architecture Center: Cloud Design Patterns](https://learn.microsoft.com/en-us/azure/architecture/patterns/)
