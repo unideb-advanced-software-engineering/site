@@ -1,0 +1,86 @@
+katas:
+  - id: 1
+    title: "ShopTheDrop"
+    description: "A small e-commerce brand runs limited-stock flash sales ('drops') that generate short, extreme traffic spikes."
+    users:
+      - "Customers"
+      - "Customer Service"
+      - "Warehouse Staff"
+    requirements:
+      - "Generally minimal load, but there may be 5-10 minute spikes in traffic."
+      - "No orders may be lost or unpaid."
+      - "No more items may be sold than are in stock."
+    additional_context:
+      - "The development team consists of two people."
+      - "The budget is tight."
+      - "It is acceptable if an order remains in a 'pending' state for ~1 minute."
+    optional_twist:
+      - "The payment provider sometimes responds within 30–60 seconds."
+
+  - id: 2
+    title: "DeBi"
+    description: "A real-time map showing bike and station availability. Stations frequently send updates, but may occasionally go offline."
+    users:
+      - "Bikers"
+      - "City operators"
+      - "Maintenance staff"
+    requirements:
+      - "The map should display bike availability in real time."
+      - "The app should remain responsive even during peak hours."
+      - "Historical data should be available for future analysis."
+    additional_context:
+      - "If a station is offline, updates may arrive late and out of chronological order."
+    optional_twist:
+      - "Public API consumers refresh every second, with millions of requests."
+
+  - id: 3
+    title: "GetMeOut"
+    description: "Collect and export all personal data associated with a user from multiple internal (including legacy) systems, with source attribution."
+    users:
+      - "Data Protection Officers"
+      - "Administrators"
+      - "End users (indirectly)"
+    requirements:
+      - "The export must be completed within 24 hours at the latest, but preferably within a few hours."
+      - "The report must be accurate and complete."
+      - "It must also connect to systems that cannot be modified."
+    additional_context:
+      - "The system is constantly being expanded with new components, which then require exporting."
+    optional_twist:
+      - "Some systems only provide data via nightly batch files."
+
+  - id: 4
+    title: "InfluPay"
+    description: "A platform that pays content creators weekly based on views and subscriptions."
+    users:
+      - "Content Creators"
+      - "Finance"
+      - "Customer Service"
+      - "Auditors"
+    requirements:
+      - "Weekly payments, in an auditable manner."
+      - "View and subscription data may arrive late (even weeks later)."
+      - "Reversal and re-payment in case of incorrect calculations."
+    additional_context:
+      - "Audits: 'Why was the payment exactly this amount?'"
+    optional_twist:
+      - "Creators can dispute the payment; a detailed timeline must be displayed."
+  
+  - id: 5 
+    title: "DeadNation" 
+    description: "Ticket sales for concerts by the world's biggest artists." 
+    users: 
+      - "Ticket buyers" 
+      - "Customer Service" 
+      - "On-site operation" 
+    requirements: 
+      - "Tens of thousands of interested people." 
+      - "Manage extreme peaks for 5-15 minutes without crashing." 
+      - "Same chair can't be sold twice." 
+      - "„Holding chair for N minutes”, then auto-release if no payment." 
+      - "Quick feedback and „almost live” seat map." 
+    additional_context: 
+      - "Significant budget." 
+      - "Payment provider responses may be delayed." 
+    optional_twist: 
+      - "Pricing updated dynamically every 10 seconds during the rush"

@@ -54,8 +54,45 @@ The date of the most recent update is shown at the bottom of the page.
 - Comprehensive Collection
   - [Richards, Ford: Fundamentals of Software Architecture](https://fundamentalsofsoftwarearchitecture.com/)
     - Part II
+- Innovative styles
+  - Clean Architecture
+    - Variants: Ports and Adapters, Hexagonal, Onion
+    - [Uncle Bob: The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+  - Vertical Slice Architecture
+    - [Jimmy Bogard: Vertical Slice Architecture](https://www.jimmybogard.com/vertical-slice-architecture/)
+    - [Oskar Dudycz: My thoughts on Vertical Slices, CQRS, Semantic Diffusion and other fancy words](https://www.architecture-weekly.com/p/my-thoughts-on-vertical-slices-cqrs)
+  - Citadel Architecture
+    - [DHH: The Majestic Monolith Can Become The Citadel](https://signalvnoise.com/svn3/the-majestic-monolith-can-become-the-citadel/)
+  - Serverless Architecture
+    - [Mike Roberts: Serverless Architectures](https://martinfowler.com/articles/serverless.html)
+
+Note that the innovative styles mentioned above are often reinterpretations of earlier styles:
+- Clean Architecture refines Layered Architecture.
+- Vertical Slice Architecture can, in a sense, be equated with the Modular Monolith.
+- Citadel Architecture can be viewed as a transition between the Modular Monolith and Service-Based Architecture.
+
+Alternatively, they may even be quite elusive, such as Serverless Architecture (which is more of an umbrella term than a specific style).
 
 {% linkcard
-   title="Case studies"
-   href="/site/en/scenarios/00-chocomarket"
-   description="Go to the case studies." /%}
+   title="04: Architectural Styles"
+   href="/site/hu/classes/04"
+   description="Go to the related exercise." /%}
+
+{% linkcard
+   title="05: Architectural Styles"
+   href="/site/en/classes/05"
+   description="Go to the related exercise." /%}
+
+## Architectural Patterns
+
+Below the level of architectural styles, we find architectural patterns (though it is debatable whether styles such as Vertical Slice Architecture should be considered simple patterns rather than styles).
+
+{% aside type="tip" title="Styles and Patterns" %}
+While **styles** dictate the overall structure of our system (with a great deal of flexibility), **patterns** are lower-level, reusable solutions to frequently encountered architectural problems (i.e., problem-solution pairs).
+{% /aside %}
+
+Such patterns, similar to design patterns, are collected in catalogs. Here are a few:
+- [Martin Fowler: Patterns of Enterprise Application Architecture](https://martinfowler.com/eaaCatalog/)
+- [Unmesh Joshi: Patterns of Distributed Systems](https://martinfowler.com/articles/patterns-of-distributed-systems/)
+- [Azure Architecture Center: Cloud Design Patterns](https://learn.microsoft.com/en-us/azure/architecture/patterns/)
+

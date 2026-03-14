@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import AnchorHeading from '@astrojs/starlight/components/AnchorHeading.astro';
+import { LinkCard } from '@astrojs/starlight/components';
+
+const slugify = (value: string) =>
+	value
+		.normalize('NFKD')
+		.replace(/[\u0300-\u036f]/g, '')
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, '-')
+		.replace(/^-+|-+$/g, '');
+
+const katas = (await getCollection('architectureStylesScenarioKatasEN')).sort(
+	(a, b) => a.data.id - b.data.id
+);
+
+const kataSections = katas.map((kata) => {
+	const headingId = `kata-${kata.data.id}-${slugify(kata.data.title)}`;
+
+	return {
+		...kata,
+		headingId,
+	};
+});
+
+const frontmatter = {
+	title: 'Case Studies for Practicing Architectural Styles',
+	description: 'Case Studies for Practicing Architectural Styles.',
+};
+
+const headings = kataSections.map((kata) => ({
+	depth: 2,
+	slug: kata.headingId,
+	text: kata.data.title,
+}));
+---
+
+<StarlightPage frontmatter={frontmatter} headings={headings}>
+    <LinkCard title="04: Architectural styles" href="/site/en/classes/04" description="View the related exercise." />
+
+    <!-- <LinkCard title="Download as PDF" href="/site/architecture-styles-scenarios.pdf" description="Az összes esettanulmány letöltése PDF formátumban." target="_blank" /> -->
+
+    <LinkCard
+        title="Architecture Styles Worksheet"
+        href="/site/architecture-styles-worksheet.pdf"
+        target="_blank" />
+
+	{
+		kataSections.map((kata, index) => (
+			<section>
+				<AnchorHeading level={2} id={kata.headingId}>
+					{`0${index + 1} ${kata.data.title}`}
+				</AnchorHeading>
+
+				<p>{kata.data.description}</p>
+
+				<p><strong>Users</strong></p>
+				<ul>
+					{kata.data.users.map((user) => (
+						<li>{user}</li>
+					))}
+				</ul>
+
+				<p><strong>Requirements</strong></p>
+				<ul>
+					{kata.data.requirements.map((requirement) => (
+						<li>{requirement}</li>
+					))}
+				</ul>
+
+				<p><strong>Additions</strong></p>
+				<ul>
+					{kata.data.additional_context.map((context) => (
+						<li>{context}</li>
+					))}
+				</ul>
+			</section>
+		))
+	}
+</StarlightPage>
