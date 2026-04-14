@@ -1,37 +1,91 @@
 ---
 title: "06: ADR, Docs-as-code"
-description: "Architekturális döntési jegyzőkönyvek, Astro Starlight."
+description: "Architekturális döntési jegyzőkönyvek"
 ---
 
 {% aside title="Projektmunka kimenetek" icon="add-document" %}
 - A korábban választott architekturális stílus dokumentálása ADR formátumban.
 {% /aside %}
 
-
 {% aside type="caution" title="Házi feladat" icon="laptop" %}
-A csoport tárolójához tartozó nyilvános weboldal kitöltése, konfigurálása.
+A korábban választott architekturális stílus dokumentálása ADR formátumban.
 {% /aside %}
+
+{% linkcard
+   title="Forrásgyűjtemény: Architekturális döntési jegyzőkönyvek"
+   href="/site/hu/general/sources/#architekturális-döntési-jegyzőkönyvek"
+   description="Ugrás a kapcsolódó forrásokhoz." /%}
 
 ## Elmélet: Architekturális döntési jegyzőkönyvek
 
-TBD
+> Why is more important than how.
+>
+> The Second Law of Software Architecture
+
+Az architekturális tervezési folyamat azért olyan izgalmas, mert nincsenek egyértelmű, helyes válaszok. Ehelyett újra és újra alternatívákat kell mérlegelnünk és kompromisszumokat kell kötnünk, előtérbe tolva bizonyos minőségi jellemzőket, míg háttérbe helyezve másokat. Ilyen döntés lehet például egy architekturális stílus kiválasztása vagy valamilyen technológia bevezetése. A végleges architektúra lényegében e döntések sorozatának eredménye.
+
+A döntés végkimenetelének fontossága magától értetődik. Még fontosabb ugyanakkor a döntés kontextusa:
+- A kielégítendő minőségi jellemzők.
+- Az elvetett alternatívák (és miértjük).
+- Az elfogadott kompromisszumok.
+
+Míg a döntés végkimenetele megjelenik az architektúrában (ha úgy döntöttünk, hogy rétegzett stílust használunk, akkor a stílus használata dokumentálja a döntést), addig a kontextus idővel feledésbe merülhet, megakadályozva a döntés későbbi megértését, és az architektúra hatékony evolúcióját. Nagy szolgálatot tehetünk ezért nem csak a később csatlakozó munkatársaknak, hanem a jövőbeli önmagunknak is azzal, ha részletesen dokumentáljuk a döntéseinket.
+
+E dokumentációra szolgálnak az architekturális döntési jegyzőkönyvek (Architectural Decision Record, ADR), melyekről itt olvashatunk részletesen:
+- [https://adr.github.io/](https://adr.github.io/)
+
+Bár számos különböző ADR-formátum létezik, mindegyiknek a lényege ugyanaz: valamilyen architekturálisan szignifikáns döntés és annak kontextusának dokumentálása.
+
+A következőkben mi a [Y-Statement](https://medium.com/olzzio/y-statements-10eb07b5a177) formátumot fogjuk használni, mely a következő sablont jelenti:
+
+```
+In the context of <use case/user story>,
+facing <concern>,
+we decided for <option>
+and neglected <other options>,
+to achieve <system qualities/desired consequences>,
+accepting <downside/undesired consequences>,
+because <additional rationale>.
+```
 
 ## Közösen: ChocoMarket ADR
 
-TBD
+Készítjük el a [ChocoMarket](../../scenarios/00-chocomarket) eddigi egyetlen architekturális döntésének, az architekturális stílus [kiválasztásának](../05) jegyzőkönyvét!
+
+```
+In the context of
+- the entire system
+facing
+- a different set of quality attributes for catalog reading and serving
+we decided for
+- a hybrid architecture
+and neglected
+- choosing just a single architectural style
+to achieve
+- that we can satisfy the different quality attributes
+accepting
+- the complexity,
+- the additional operational burder,
+- and the additional maintenance burden.
+```
 
 ## Csoportmunka: Architekturális stílus ADR
 
-TBD
-
-## Elmélet: Dokumentáció, mint kód
-
-TBD
-
-## Közösen: Astro Starlight-alapú weboldal
-
-TBD
+Készítsünk Y-Statement formátumú ADR-t az esettanulmányunkhoz választott architekturális stílushoz!
 
 ## Házi feladat
 
-TBD
+A csoportok ADR-t készítenek a korábban választott architekturális stílushoz.
+
+Az ADR-t a csoport GitHub tárolójában kell elhelyezni, az alábbi módon:
+
+{% filetree %}
+- adr
+  - **01-architecture-style.md**
+- ac.md
+- as.md
+- asr.md
+- esettanulmany.md
+- README.md
+- srs.doc
+{% /filetree %}
