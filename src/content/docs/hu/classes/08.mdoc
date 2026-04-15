@@ -1,37 +1,73 @@
 ---
 title: "08: C4 modell"
-description: "Architekturális döntési jegyzőkönyvek, Astro Starlight."
+description: "A C4 architekturális diagram-modell."
 ---
 
 {% aside title="Projektmunka kimenetek" icon="add-document" %}
-- A korábban választott architekturális stílus dokumentálása ADR formátumban.
+- Egy C4 System Context diagram.
 {% /aside %}
-
 
 {% aside type="caution" title="Házi feladat" icon="laptop" %}
-A csoport tárolójához tartozó nyilvános weboldal kitöltése, konfigurálása.
+Egy C4 System Context diagram elkészítése.
 {% /aside %}
 
-## Elmélet: Architekturális döntési jegyzőkönyvek
+## Elmélet: C4 modell
 
-TBD
+Ha architektúráról, szoftvertervezésről beszélünk, akkor gyakran az első dolog, ami az eszünkbe jut, az a rajzolás: tábla, filc, dobozok és nyilak. Ezek a rajzok gyakran teljesen ad hoc szabályrendszer szerint készülnek, emiatt időtálló dokumentációként annyira nem is tekinthetünk rájuk, inkább csak pillanatnyi segítséget jelentenek a tervezőnek.
 
-## Közösen: ChocoMarket ADR
+Természetesen rendelkezésre állnak strukturált megközelítések, mint például az UML, ezek gyakran túl nehézkesek: szövevényes szabályrendszerrel bírnak, dedikált eszközöket igényelnek, inkább felesleges ceremóniának tűnnek, semmint valódi segítségnek.
 
-TBD
+Kivételt képez azonban a C4 modell, melynek kifejezett célja, hogy könnyen elsajátítható, kifejezetten a fejlesztőkre szabott megoldást nyújtson.
 
-## Csoportmunka: Architekturális stílus ADR
+Legegyszerűbb formájában a modell egy hierarchikus fogalomrendszert, valamint ezzel párhuzamosan egy hierarchikus diagramrendszert határoz meg:
+- A fogalmak: software system, container, component, code.
+- A diagramok: system context, container, component, code.
 
-TBD
+Ezekről bővebben itt olvashatunk:
+- [https://c4model.com/](https://c4model.com/)
 
-## Elmélet: Dokumentáció, mint kód
+## Elmélet: LikeC4 szintaxis
 
-TBD
+Egyszerűsége mellett a C4 modell másik előnye, hogy eszköz- és jelölésfüggetlen.
 
-## Közösen: Astro Starlight-alapú weboldal
+Ez azt jelenti, hogy a modell által elméleti síkon leírt diagramok rajzolásához tetszőleges eszközt (azaz, szoftvert) használhatunk, szabadon választott jelölések (felhasználók jelölése, kapcsolatok jelölése, stb.) mellett.
 
-TBD
+Lehetséges eszközök például az alábbiak:
+- Táblák
+  - [draw.io](https://draw.io/)
+  - [Excalidraw](https://excalidraw.com/)
+  - [tldraw](https://www.tldraw.com/)
+- Diagram-as-code
+  - [Mermaid](https://mermaid.js.org/)
+  - [Structurizr](https://structurizr.com/)
+  - [LikeC4](https://likec4.dev/)
+
+Mi a következőkben a LikeC4 szintaxist fogjuk használni a C4 modellek elkészítéséhez.
+
+## Közösen: ChocoMarket System Context
+
+Készítsünk C4 System Context diagramot a [ChocoMarket](../../scenarios/00-chocomarket) esettanulmányhoz!
+
+{% likec4 viewId="systemContext" /%}
+
+## Csoportmunka: C4 System Context
+
+Készítsünk C4 System Context diagramot az esettanulmányunkhoz!
 
 ## Házi feladat
 
-TBD
+A csoportok C4 System Context diagramot készítenek az esettanulmányukhoz.
+
+A diagramot a csoport GitHub tárolójában kell elhelyezni, az alábbi módon:
+
+{% filetree %}
+- adr
+  - 01-architecture-style.md
+- ac.md
+- as.md
+- asr.md
+- **diagram.likec4**
+- esettanulmany.md
+- README.md
+- srs.doc
+{% /filetree %}
