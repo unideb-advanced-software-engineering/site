@@ -2,10 +2,64 @@
 import mermaidRendererUrl from "../scripts/renderMermaid.ts?url";
 
 interface Props {
-  chart: string;
+  chartFile?: string
 }
 
-const { chart } = Astro.props;
+const { chartFile } = Astro.props
+
+const chartFiles = import.meta.glob("/src/**/*", {
+  eager: true,
+  import: "default",
+  query: "?raw",
+}) as Record<string, string>;
+
+const decodeHtmlEntities = (value: string) =>
+  value
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
+    .replaceAll("&amp;", "&")
+    .replaceAll("&quot;", '"')
+    .replaceAll("&#39;", "'");
+
+const inlineChart = Astro.slots.has("default")
+  ? decodeHtmlEntities(
+      (await Astro.slots.render("default"))
+        .replace(/^<p>/, "")
+        .replace(/<\/p>\s*$/, "")
+        .replace(/<br\s*\/?>/g, "\n")
+        .trim(),
+    )
+  : "";
+
+const normalizedChartFile = (() => {
+  if (!chartFile) {
+    return null;
+  }
+
+  const trimmedChartFile = chartFile.trim();
+
+  if (trimmedChartFile.startsWith("/")) {
+    return trimmedChartFile;
+  }
+
+  if (trimmedChartFile.startsWith("src/")) {
+    return `/${trimmedChartFile}`;
+  }
+
+  return `/src/${trimmedChartFile.replace(/^\.?\//, "")}`;
+})();
+
+const chart = normalizedChartFile ? chartFiles[normalizedChartFile] : inlineChart;
+
+if (normalizedChartFile && !chart) {
+  throw new Error(
+    `Mermaid chart file not found: "${chartFile}". Expected a readable file under src/.`,
+  );
+}
+
+if (!chart) {
+  throw new Error("Mermaid chart is empty. Provide chartFile or inline diagram content.");
+}
 ---
 
 <div class="mermaid-diagram" data-mermaid-diagram>

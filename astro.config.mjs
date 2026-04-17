@@ -2,7 +2,6 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import { LikeC4VitePlugin } from "likec4/vite-plugin";
-import mermaid from "astro-mermaid";
 
 import markdoc from "@astrojs/markdoc";
 
@@ -16,7 +15,6 @@ export default defineConfig({
     plugins: [LikeC4VitePlugin({})],
   },
   integrations: [
-    mermaid(),
     starlight({
       title: {
         hu: "Szoftverrendszerek tervezése",
