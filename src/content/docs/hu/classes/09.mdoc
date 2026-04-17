@@ -5,31 +5,75 @@ next: false
 ---
 
 {% aside title="Projektmunka kimenetek" icon="add-document" %}
-- A korábban választott architekturális stílus dokumentálása ADR formátumban.
+- Egy C4 Container diagram.
 {% /aside %}
-
 
 {% aside type="caution" title="Házi feladat" icon="laptop" %}
-A csoport tárolójához tartozó nyilvános weboldal kitöltése, konfigurálása.
+A korábban elészült C4 System Context diagram kibővítése egy Container diagrammal.
 {% /aside %}
 
-## Elmélet: Architekturális döntési jegyzőkönyvek
+## Elmélet: Attribute-Driven Design 3.0
 
-TBD
+A megelőző gyakorlaton egy [C4 System Context](https://c4model.com/diagrams/system-context) diagramot készítettünk, mely egyetlen fekete dobozként jeleníti meg a rendszerünket. Ezen a ponton ez az ábrázolás meg is felel a valóságnak: bár már választottunk architekturális stílust, azonban a rendszert felépítő kisebb alkotórészekről még semmilyen konkrét elképzelésünk nincs.
 
-## Közösen: ChocoMarket ADR
+Most már viszont itt az ideje, hogy „belezoomoljunk” a rendszerbe, és elkezdjük a kisebb részekre bontását, finomítását.
 
-TBD
+Erre a felbontásra és finomításra szolgál az Attribute-Driven Design (ADD) nevű módszer, mely egy strukturált, iteratív tervezési eljárás.
 
-## Csoportmunka: Architekturális stílus ADR
+A módszer elve rendkívül egyszerű: kiindulva a szignifikáns követelményekből és egy létező architektúrából (mely lehet csupán egyetlen doboz is, a teljes rendszer), iteratívan addig finomítunk, amíg a kapott architektúra meg nem felel a követelményeknek.
 
-TBD
+{% mermaid %}
+flowchart TB
+    subgraph DRIVERS[ ]
+        direction LR
+        DP[Design purpose]
+        PFR[Primary functional requirements]
+        QAS[Quality attribute scenarios]
+        CON[Constraints]
+        AC[Architectural concerns]
+    end
 
-## Elmélet: Dokumentáció, mint kód
+    S1[Step 1: Review inputs]
+    S2[Step 2: Establish iteration goal]
+    S3[Step 3: Refine system elements]
+    S4[Step 4: Choose design concepts]
+    S5[Step 5: Instantiate architecture]
+    S6[Step 6: Sketch views and decisions]
+    S7[Step 7: Analyze current design]
+    OUT([Refined Software Architecture Design])
 
-TBD
+    S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S7 --> OUT
 
-## Közösen: Astro Starlight-alapú weboldal
+    DP -.-> S1
+    PFR -.-> S1
+    QAS -.-> S1
+    CON -.-> S1
+    AC -.-> S1
+
+    EX[From previous rounds or existing system]
+    EX -.-> S1
+
+    classDef driver fill:#b71c1c,stroke:#222,color:#fff,stroke-width:2px;
+    classDef step fill:#a9b7e8,stroke:#222,color:#fff,stroke-width:2px;
+    classDef output fill:#dfe8d6,stroke:#222,color:#222,stroke-width:2px;
+    classDef note fill:transparent,stroke:transparent,color:#222;
+
+    class DP,PFR,QAS,CON,AC driver;
+    class S1,S2,S3,S4,S5,S6,S7 step;
+    class OUT output;
+    class EX note;
+
+    style DRIVERS fill:transparent,stroke:transparent
+{% /mermaid %}
+
+## Elmélet: C4 Containers
+
+## Közösen: ChocoMarket Container Diagram
+
+
+{% likec4 viewId="containerDiagram" /%}
+
+## Csoportmunka: Container Diagram
 
 TBD
 

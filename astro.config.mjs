@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import { LikeC4VitePlugin } from "likec4/vite-plugin";
+import mermaid from "astro-mermaid";
 
 import markdoc from "@astrojs/markdoc";
 
@@ -14,51 +15,56 @@ export default defineConfig({
   vite: {
     plugins: [LikeC4VitePlugin({})],
   },
-  integrations: [starlight({
-    title: {
-      hu: "Szoftverrendszerek tervezése",
-      en: "Advanced Software Engineering",
-    },
-    customCss: ["./src/styles/custom.css"],
-    defaultLocale: "hu",
-    locales: {
-      en: {
-        label: "English",
+  integrations: [
+    mermaid(),
+    starlight({
+      title: {
+        hu: "Szoftverrendszerek tervezése",
+        en: "Advanced Software Engineering",
       },
-      hu: {
-        label: "Magyar",
-      },
-    },
-    social: [
-      {
-        icon: "github",
-        label: "GitHub",
-        href: "https://github.com/unideb-advanced-software-engineering",
-      },
-    ],
-    sidebar: [
-      {
-        label: "Általános",
-        translations: {
-          en: "General",
+      customCss: ["./src/styles/custom.css"],
+      defaultLocale: "hu",
+      locales: {
+        en: {
+          label: "English",
         },
-        autogenerate: { directory: "general" },
-      },
-      {
-        label: "Nappali gyakorlatok",
-        translations: {
-          en: "Classes",
+        hu: {
+          label: "Magyar",
         },
-        autogenerate: { directory: "classes" },
       },
-      {
-        label: "Esettanulmányok",
-        translations: {
-          en: "Scenarios",
+      social: [
+        {
+          icon: "github",
+          label: "GitHub",
+          href: "https://github.com/unideb-advanced-software-engineering",
         },
-        collapsed: true,
-        autogenerate: { directory: "scenarios" },
-      },
-    ],
-  }), markdoc(), react()],
+      ],
+      sidebar: [
+        {
+          label: "Általános",
+          translations: {
+            en: "General",
+          },
+          autogenerate: { directory: "general" },
+        },
+        {
+          label: "Nappali gyakorlatok",
+          translations: {
+            en: "Classes",
+          },
+          autogenerate: { directory: "classes" },
+        },
+        {
+          label: "Esettanulmányok",
+          translations: {
+            en: "Scenarios",
+          },
+          collapsed: true,
+          autogenerate: { directory: "scenarios" },
+        },
+      ],
+    }),
+    markdoc(),
+    react(),
+  ],
 });
