@@ -1,8 +1,4 @@
-import {
-  Markdoc,
-  component,
-  defineMarkdocConfig,
-} from "@astrojs/markdoc/config";
+import { component, defineMarkdocConfig } from "@astrojs/markdoc/config";
 import starlightMarkdoc from "@astrojs/starlight-markdoc";
 
 const likeC4Component = component("./src/components/LikeC4View.astro");
