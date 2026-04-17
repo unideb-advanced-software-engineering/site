@@ -2,63 +2,27 @@ import mermaid from "mermaid";
 
 declare global {
   interface Window {
-    __renderMermaidDiagrams?: () => Promise<void>;
+    __mermaidInitialized?: boolean;
   }
 }
 
-const mermaidWindow = window;
-
-if (!mermaidWindow.__renderMermaidDiagrams) {
+if (!window.__mermaidInitialized) {
   mermaid.initialize({
     startOnLoad: false,
     theme: "neutral",
     fontFamily: "inherit",
   });
 
-  mermaidWindow.__renderMermaidDiagrams = async () => {
-    const diagrams = document.querySelectorAll(
-      "[data-mermaid-diagram]:not([data-mermaid-rendered])",
-    );
-
-    for (const diagram of diagrams) {
-      const source = diagram.querySelector("[data-mermaid-source]")?.textContent?.trim();
-      const output = diagram.querySelector("[data-mermaid-output]");
-      const error = diagram.querySelector("[data-mermaid-error]");
-
-      if (!source || !(output instanceof HTMLElement) || !(error instanceof HTMLElement)) {
-        continue;
-      }
-
-      diagram.setAttribute("data-mermaid-rendered", "");
-
-      try {
-        const id =
-          typeof crypto.randomUUID === "function"
-            ? `mermaid-${crypto.randomUUID()}`
-            : `mermaid-${Math.random().toString(36).slice(2)}`;
-        const { svg } = await mermaid.render(id, source);
-        output.innerHTML = svg;
-        error.hidden = true;
-      } catch (cause) {
-        output.textContent = "";
-        error.textContent =
-          cause instanceof Error ? cause.message : "Failed to render Mermaid diagram.";
-        error.hidden = false;
-      }
-    }
-  };
-
-  const renderMermaidDiagrams = () => {
-    void mermaidWindow.__renderMermaidDiagrams?.();
+  const renderMermaidDiagrams = async () => {
+    await mermaid.run({ querySelector: ".mermaid" });
   };
 
   document.addEventListener("astro:page-load", renderMermaidDiagrams);
+  window.__mermaidInitialized = true;
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", renderMermaidDiagrams, { once: true });
   } else {
-    renderMermaidDiagrams();
+    void renderMermaidDiagrams();
   }
-} else {
-  void mermaidWindow.__renderMermaidDiagrams();
 }

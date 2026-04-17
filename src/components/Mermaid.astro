@@ -40,34 +40,18 @@ if (!chart) {
 }
 ---
 
-<div class="mermaid-diagram" data-mermaid-diagram>
-  <pre data-mermaid-source hidden>{chart}</pre>
-  <div class="mermaid-diagram__output" data-mermaid-output aria-label="Mermaid diagram"></div>
-  <p class="mermaid-diagram__error" data-mermaid-error hidden></p>
-</div>
+<div class="mermaid">{chart}</div>
 
 <script type="module" src={mermaidRendererUrl}></script>
 
 <style>
-  .mermaid-diagram {
+  .mermaid {
     margin-block: 1.5rem;
     overflow-x: auto;
   }
 
-  .mermaid-diagram__output {
-    display: flex;
-    justify-content: center;
-    min-width: max-content;
-  }
-
-  .mermaid-diagram :global(svg) {
+  .mermaid :global(svg) {
     height: auto;
     max-width: 100%;
-  }
-
-  .mermaid-diagram__error {
-    color: var(--sl-color-red);
-    font-size: var(--sl-text-sm);
-    margin: 0;
   }
 </style>
