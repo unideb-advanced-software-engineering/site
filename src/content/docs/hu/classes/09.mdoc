@@ -12,6 +12,16 @@ next: false
 A korábban elészült C4 System Context diagram kibővítése egy Container diagrammal.
 {% /aside %}
 
+{% linkcard
+   title="Forrásgyűjtemény: C4 modell"
+   href="/site/hu/general/sources/#C4-modell"
+   description="Ugrás a kapcsolódó forrásokhoz." /%}
+
+{% linkcard
+   title="Forrásgyűjtemény: Attribute-Driven Design"
+   href="/site/hu/general/sources/#Attribute-Driven-Design"
+   description="Ugrás a kapcsolódó forrásokhoz." /%}
+
 ## Elmélet: Attribute-Driven Design 3.0
 
 A megelőző gyakorlaton egy [C4 System Context](https://c4model.com/diagrams/system-context) diagramot készítettünk, mely egyetlen fekete dobozként jeleníti meg a rendszerünket. Ezen a ponton ez az ábrázolás meg is felel a valóságnak: bár már választottunk architekturális stílust, azonban a rendszert felépítő kisebb alkotórészekről még semmilyen konkrét elképzelésünk nincs.
@@ -22,19 +32,80 @@ Erre a felbontásra és finomításra szolgál az Attribute-Driven Design (ADD) 
 
 A módszer elve rendkívül egyszerű: kiindulva a szignifikáns követelményekből és egy létező architektúrából (mely lehet csupán egyetlen doboz is, a teljes rendszer), iteratívan addig finomítunk, amíg a kapott architektúra meg nem felel a követelményeknek.
 
+Valahogy így (bátran nagyítsuk az oldalt!):
+
 {% mermaid chartFile="content/mermaid/add.mermaid" /%}
 
 ## Elmélet: C4 Containers
 
+A C4 modell egy hierarchikus fogalom- és diagramrendszer.
+
+A teljes rendszer (avagy, system) után a hierarchia következő fogalma a [container](https://c4model.com/abstractions/container), mely lehet többek közt:
+- szerver-oldali webalkalmazás,
+- szerver-oldali service,
+- kliens-oldali webalkalmazás,
+- asztali szoftver,
+- mobilon futó alkalmazás,
+- serverless függvény,
+- adatbázis,
+- és így tovább!
+
+A containerek ábrázolására szolgál a [container diagram](https://c4model.com/diagrams/container), melyből, hasonlóan a system context diagramhoz, csupán egy lesz: a teljes rendszer, felbontva containerekre.
+
+{% aside type="caution" title="Nevezéktan" %}
+Figyeljünk oda, hogy a C4 modell és az ADD eltérő nevezéktant használnak.
+
+Azaz, ami a C4 modellben egy container, azt az ADD általában componentnek hívja.
+{% /aside %}
+
 ## Közösen: ChocoMarket Container Diagram
 
+Készítsünk C4 Container diagramot a [ChocoMarket](../../scenarios/00-chocomarket) esettanulmányhoz!
+
+Vegyük észre, hogy míg a System Context diagram elkészíthető volt csupán az SRS alapján (átvéve a felhasználókat, felhasználói csoportokat, valamint a külső függőségeket), addig a Container diagram elkészítéséhez már architekturális döntéseket kell hoznunk.
+
+Azaz, a Container diagram elkészítésével párhuzamosan érdemes [ADR-eket](../06) is írnunk, melyeket aztán referálhatunk is a diagramban.
+
+A ChocoMarket Container diagramjához releváns architekturális döntések:
+- Hibrid architekturális stílus.
+- EDA a katalógusok betöltéséhez, modular monolith a katalógusok kiszolgálásához.
+- Egyetlen adatbázis az összes adat tárolásához.
+- A beolvasott csokoládék adatbázisba írása egyetlen writer service-en keresztül.
+- Különálló frontendek az eltérő felhasználói csoportoknak.
 
 {% likec4 viewId="containerDiagram" /%}
 
+{% linkcard
+   title="ChocoMarket Container Diagram"
+   href="https://github.com/unideb-advanced-software-engineering/26-tavasz-00-chocomarket/blob/main/diagram.likec4"
+   description="Ugrás a diagram forráskódjához." /%}
+
+
+{% linkcard
+   title="LikeC4 dokumentáció"
+   href="https://likec4.dev/tutorial/"
+   description="Ugrás a LikeC4 dokumentációjához." /%}
+
 ## Csoportmunka: Container Diagram
 
-TBD
+Készítsünk C4 Container diagramot az esettanulmányunkhoz!
 
 ## Házi feladat
 
-TBD
+Bővítsük a már meglevő LikeC4 formátumú C4 System Context diagramot egy C4 Container diagram nézettel (view).
+
+A diagramnak változatlanul a csoport GitHub tárolójában kell helyet foglalnia, az alábbi módon:
+
+{% filetree %}
+- adr
+  - 01-architecture-style.md
+- ac.md
+- as.md
+- asr.md
+- **diagram.likec4**
+- esettanulmany.md
+- README.md
+- srs.doc
+{% /filetree %}
+
+A fontosabb döntéseket dokumentáljuk ADR-ek formájában!
