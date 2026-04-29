@@ -32,7 +32,7 @@ A fentiek kiegészülnek a hiányzásokkal kapcsolatos ismert követelménnyel: 
 A kollokviumi jegyet a csapatok tagjai a projektmunka keretében leadott dokumentáció szóbeli megvédéséért kapják.
 
 {% aside type="caution" %}
-A védés pontos menetét a félév későbbi részében fogjuk közzétenni.
+A védés pontos menetét a következő napokban fogjuk közzétenni.
 {% /aside %}
 
 
@@ -40,15 +40,45 @@ A védés pontos menetét a félév későbbi részében fogjuk közzétenni.
 
 Teljesnek minősül az a projektmunka, mely tartalmazza az alább felsorolt dokumentációs elemek **mindegyikét**.
 
-A dokumentációs elemek **csakis akkor** minősülnek leadottnak, ha elérhetők a csoport GitHub tárolójának `main` ágán.
+A dokumentációs elemek **csakis akkor** minősülnek leadottnak, ha elérhetők a csoport GitHub tárolójának `main` ágán, preferáltan egy nyilvános Astro dokumentációs oldalon.
 
-{% aside type="caution" %}
-E felsorolás a félév előrehaladtával (és a megfelelő gyakorlatokkal) folyamatosan bővül.
+### Általános követelmények
+
+Az előállított dokumentumok mindegyike feleljen meg az alábbaiaknak:
+
+- A leadott dokumentáció készülhet magyar vagy angol nyelven. A nyelvek vegyítése, bár nem szerencsés, de megengedett: egy dokumentum magyar nyelven, míg egy másik angol nyelven.
+- Nyelvtől függetlenül ügyeljünk a nyelvhelyességre, a helyesírásra. A magyar nyelvű szövegben igyekezzünk az angol nyelvű szakszavak magyar nyelvű megfelelőit használni.
+- Figyeljünk oda, hogy mindent (legyen az követelmény, minőségi jellemző, architekturális karakterisztika, architekturális döntés) tisztán vissza tudjunk vezetni az eredeti esettanulmányra. Azaz, majdnem minden választás és döntés végső soron az eredeti esettanulmányban gyökerezik. Kivételt csupán a csapat tapasztalatára, preferenciáira épülő döntések jelenthetnek („Azért használunk JavaScriptet, mert ezzel van kiterjedt tapasztalatunk.”).
+
+Az előállított dokumentumokat fűzzük össze egy nyilvánosan elérhető (GitHub Pages segítségével kihelyezett) Astro dokumentációs oldalba, mely legyen:
+- könnyen és logikusan navigálható,
+- esztétikus.
+
+Az oldalon a kötelező elemeken felül tetszőleges (az esettanulmányhoz és a tárgyhoz kapcsolódó) tartalom elhelyezhető.
+
+{% aside type="caution" title="Figyelem" %}
+
+Az esettanulmányok egyikéhez sincs tökéletes megoldás. Nem tartozik hozzájuk megoldókulcs, amihez mérnénk a leadott munkákat.
+
+Az értékelés alapját nem a döntéseitek, hanem azok kontextusa adja: milyen opciókat mérlegeltetek és legfőképp, miért jutottatok az adott döntésre.
+
 {% /aside %}
 
 ### Software Requirements Specification
 
 Az esettanulmány leírásából a hallgatók konkrét követelményeket származtatnak, melyek alapján kitöltik az [IEEE SRS sablon](/site/srs-template.doc) megfelelő részeit.
+
+Az SRS értékelésének szempontjai:
+- A dokumentumból világosan kiderül, hogy a termék milyen problémát old meg, milyen funkciókat biztosít és kik a felhasználói.
+- Megjelenik a szoftver és a külvilág kapcsolata: a felhasznált külső rendszerek és a különböző interfészek.
+- A szoftver minden fontosabb funkcionalitása részletesen megjelenik: ki, mit, miért és hogyan csinál.
+- A funkcionalitáshoz kapcsolódóan megjelennek nemfunkcionális követelmények, quality attribute szcenáriók.
+
+### Architctural Characteristics
+
+Azoknak a minőségi jellemzőknek a felsorolása, melyek meghatározzák az elkészítendő alkalmazás architektúráját. Azaz, az architekturális karakterisztikák összegyűjtése.
+
+Az egyes karakterisztikákat el kell látni annak indokásával is, hogy az karakterisztika miért számít architekturális karakterisztikának.
 
 ### Architecturally Significant Requirements
 
@@ -56,8 +86,32 @@ Azoknak a követelményeknek a felsorolása, melyek meghatározzák az elkészí
 
 Az egyes követelményeket el kell látni annak indoklásával is, hogy az adott követelmény miért számít ASR-nek.
 
-### Architctural Characteristics
+### Architecture Style
 
-Azoknak a minőségi jellemzőknek a felsorolása, melyek meghatározzák az elkészítendő alkalmazás architektúráját. Azaz, az architekturális karakterisztikák összegyűjtése.
+Legalább egy, de feltehetően inkább több választott architekturális stílus.
 
-Az egyes karakterisztikákat el kell látni annak indokásával is, hogy az karakterisztika miért számít architekturális karakterisztikának.
+A különböző alrendszerek különböző stílusokat igényelhetnek, valamint elosztott rendszerek esetén releváns lehet, hogy az egyes komponensek architektúrájátja milyen.
+
+A választott architekturális stílus(oka)t egy ADR-ben kell dokumentálni.
+
+### Architectural Decision Record
+
+Legalább **5 darab**, tetszőleges stílusú (Y-Statement, Nygard, MADR, stb.) ADR, melyek mindegyike valamilyen architekturálisan szignifikáns döntést dokumentál.
+
+Milyen döntések lehetnek ezek? Néhány példa (a stílusok dokumentálásán felül):
+- A rendszer felbontása alrendszerekre, komponensekre. Akár ADD-t használtatok, akár nem, mindenképpen lesznek kisebb komponensei a rendszereteknek. E felbontáshoz számtalan ADR készíthető.
+- A komponensek közötti kommunikációs stílus és megvalósítás.
+- Adattárolási megfontolások.
+- Választott technológiák.
+
+### C4 Diagram
+
+A szoftverről készítsük el a következő diagramokat:
+
+- C4 System Context diagram,
+- C4 Container diagram.
+
+A diagramok legyenek:
+- informatívak (használjuk ki a LikeC4 adta lehetőségeket),
+- következetesek (például ugyanazt a dolgot jelöljük ugyanúgy),
+- esztétikus megjelenésűek.
