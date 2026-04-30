@@ -1,0 +1,97 @@
+---
+title: "08: C4 modell"
+description: "The C4 architectural diagram model."
+---
+
+{% aside title="Project work outputs" icon="add-document" %}
+- A C4 System Context diagram.
+{% /aside %}
+
+{% aside type="caution" title="Homework" icon="laptop" %}
+Create a C4 System Context diagram.
+{% /aside %}
+
+## Theory: C4 Model
+
+When we talk about architecture or software design, the first thing that often comes to mind is drawing: a whiteboard, markers, boxes, and arrows. These drawings are often created according to a completely ad hoc set of rules, so they cannot really be considered as long-term documentation; rather, they serve as a momentary aid to the designer.
+
+Of course, structured approaches such as UML are available, but these are often too cumbersome: they have complex rule sets, require dedicated tools, and seem more like unnecessary formalities than genuine help.
+
+An exception, however, is the C4 model, whose explicit goal is to provide an easily learnable solution tailored specifically for developers.
+
+In its simplest form, the model defines a hierarchical conceptual framework and, in parallel, a hierarchical diagram system:
+- The concepts: software system, container, component, code.
+- The diagrams: system context, container, component, code.
+
+You can read more about these here:
+- [https://c4model.com/](https://c4model.com/)
+
+## Theory: C4 System Context
+
+At the very top of the hierarchy defined by the C4 model is the entire system, which the model refers to as the [software system](https://c4model.com/abstractions/software-system). The corresponding diagram is the [system context](https://c4model.com/diagrams/system-context).
+
+The most important element of a system context diagram is the system itself (the software system) that we are developing. This is represented by a single large box. It is complemented by the system’s users (people, machine users, user groups, and personas), as well as external dependencies that lie outside the boundaries of the system we are developing and controlling.
+
+{% aside type="tip" title="Container Diagram" %}
+In this exercise, we will create a C4 System Context diagram. The C4 Container diagram is the subject of the [next exercise](./09).
+{% /aside %}
+
+## Theory: LikeC4 Syntax
+
+In addition to its simplicity, another advantage of the C4 model is that it is tool- and notation-independent.
+
+This means that we can use any tool (i.e., software) to draw the diagrams described by the model on a theoretical level, along with freely chosen notations (user notation, relationship notation, etc.).
+
+Possible tools include the following:
+- Diagram editors
+  - [draw.io](https://draw.io/)
+  - [Excalidraw](https://excalidraw.com/)
+  - [tldraw](https://www.tldraw.com/)
+- Diagram-as-code
+  - [Mermaid](https://mermaid.js.org/)
+  - [Structurizr](https://structurizr.com/)
+  - [LikeC4](https://likec4.dev/)
+
+In the following, we will use the LikeC4 syntax to create C4 models.
+
+{% linkcard
+   title="LikeC4 documentation"
+   href="https://likec4.dev/tutorial/"
+   description="Go to the LikeC4 documentation." /%}
+
+{% aside type="tip" title="VSCode integration" %}
+LikeC4 has [VSCode integration](https://likec4.dev/tooling/editors/#vscode), so there is no need to use [Playground](https://playground.likec4.dev/w/tutorial/index/).
+{% /aside %}
+
+## Together: ChocoMarket System Context
+
+Let's create a C4 System Context diagram for the [ChocoMarket](../../scenarios/00-chocomarket) case study!
+
+{% likec4 viewId="systemContextDiagram" /%}
+
+{% linkcard
+   title="ChocoMarket Container Diagram"
+   href="https://github.com/unideb-advanced-software-engineering/26-spring-00-chocomarket/blob/main/diagram.likec4"
+   description="Go to the diagram's source code." /%}
+
+## Group Work: C4 System Context
+
+Let's create a C4 System Context diagram for our case study!
+
+## Homework
+
+Groups will create a C4 System Context diagram for their case study.
+
+The diagram must be placed in the group's GitHub repository as follows:
+
+{% filetree %}
+- adr
+  - 01-architecture-style.md
+- ac.md
+- as.md
+- asr.md
+- **diagram.likec4**
+- case-study.md
+- README.md
+- srs.doc
+{% /filetree %}
