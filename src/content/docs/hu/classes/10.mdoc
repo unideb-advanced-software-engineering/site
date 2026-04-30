@@ -4,4 +4,660 @@ description: "Architekturális döntési jegyzőkönyvek, Astro Starlight."
 next: false
 ---
 
-TBD
+{% aside title="Projektmunka kimenetek" icon="add-document" %}
+- Az eddig elkészült dokumentumok egy nyilvánosan hozzáférhető Astro dokumentációs oldalban.
+{% /aside %}
+
+{% aside type="caution" title="Házi feladat" icon="laptop" %}
+Egy Astro oldal elkészítése és kihelyezése GitHub Pagesre.
+{% /aside %}
+
+## Bevezetés
+
+### Miért készítünk dokumentációs oldalt?
+
+A félév során, gyakorlatról gyakorlatra újabb dokumentumokkal bővítettük az esettanulmányunk kidolgozását. E dokumentumok (az SRS fájl kivételével) Markdownban és LikeC4-ban készültek, melyek, bár ember által is fogyaszthatók, mégis inkább a gépi feldolgozásnak kedveznek. Gondoljunk csak arra, hogy mind a Markdown, mint a LikeC4 egy dedikált megjelenítőt igényel.
+
+Annak érdekében, hogy az előállított dokumentációt emberek (kiváltképp laikusok!) számára is hozzáférhetőbbé és fogyaszthatóbbá tegyük, egy [Astro](https://astro.build/) [Starlight](https://starlight.astro.build/)-alapú dokumentációs oldalt fogunk készíteni. Ezáltal nincs szükség specializált megjelenítő szoftverre, a célközönség csupán egy böngészővel is képes áttekinteni a dokumentációt.
+
+### Miért készítjük Astroval?
+
+A követelményeink a dokumentációs oldallal kapcsolatban igen egyszerűek:
+- Egy statikus, szerver-oldali logikát nélkülöző oldalt szeretnénk.
+- A meglevő Markdown és LikeC4 fájljaink minimális módosítással legyenek hozzáadhatók.
+- Ne legyen szükség terjengős konfigurációra.
+
+E követelményeknek az Astro, azon belül is annak Starlight sablonja terjes mértékben eleget tesz, hiszen:
+- Alapesetben statikus oldalt generál.
+- Beépített Markdown- és MDX-támogatással érkezik, a LikeC4-támogatás pedig bővítményekkel biztosítható.
+- Ha nem szeretnénk semmilyen sallangot, akkor a konfigurációs igény minimális.
+
+Kiemelendő ezen felül, hogy az Astro napjaink egyik [legnépszerűbb webes keretrendszere](https://astro.build/blog/year-in-review-2025/), melyet dokumentációs oldalakon túl használhatunk bármilyen, elsősorban tartalom-alapú weblap elkészítésére.
+
+## Közösen: ChocoMarket Astro konverzió
+
+A következőkben a ChocoMarket esettanulmány eddigi kidolgozását fogjuk „Astrosítani”.
+
+### Előtte
+
+Avagy, hol tartunk most? A ChocoMarket tárolója jelen formájában a következő fájlokat tartalmazza:
+
+{% filetree %}
+- adr
+  - 01-architecture-style.md
+- ac.md
+- as.md
+- asr.md
+- diagram.likec4
+- esettanulmany.md
+- README.md
+- srs.doc
+{% /filetree %}
+
+### Starlight inicializálás
+
+{% aside type="caution" title="Node.js" %}
+Az Astroval történő munkának előfeltétele, hogy az eszközünkön elérhető legyen a Node.js nevű szerver-oldali JavaScript futtatókörnyezet.
+
+Ezt telepíthetjük innen:
+- [https://nodejs.org/en](https://nodejs.org/en)
+
+Vagy használhatunk valamilyen környezetkezelő eszközt, mint például:
+- [mise](https://mise.jdx.dev/)
+- [asdf](https://asdf-vm.com/)
+{% /aside %}
+
+Első lépésként hozzunk létre egy új, üres Astro Starlight oldalt, követve a hivatalos leírást:
+
+{% steps %}
+
+1. Lépjünk be abba a mappába, melybe a tárolót klónoztuk.
+
+   ```bash
+   cd 26-tavasz-00-chocomarket
+   ```
+
+2. Adjuk ki a [Starlight: Getting Started](https://starlight.astro.build/getting-started/) oldalán is megtalálható parancsot.
+
+   ```bash
+   npm create astro@latest -- --template starlight
+   ```
+3. Ekkor elindul az inicializálási folyamat, melynek első lépése a `create-astro` csomag telepítése (amennyiben az még nem áll rendelkezésre). Ezt bátran fogadjuk el:
+
+   ```
+   Need to install the following packages:
+   create-astro@5.0.6
+   Ok to proceed? (y)
+   ```
+
+4. Ezután meg kell adnunk, hogy mely mappában jöjjön létre az új oldal. Alapesetben itt szerepel egy automatikusan generált mappanév (például `./opposite-orbit`), melyet nyugodtan meg is hagyhatunk.
+
+   ```
+   astro   Launch sequence initiated.
+
+   dir   Where should we create your new project?
+         ./opposite-orbit
+   ```
+
+5. A függőségek telepítésénél válasszuk a `No` lehetőséget a jobb nyílgombbal:
+
+   ```
+   deps   Install dependencies? (recommended)
+          ○ Yes  ● No
+   ```
+
+6. Hasonlóképpen, utasítsuk el a git tároló létrehozását is:
+
+   ```
+   git   Initialize a new git repository? (optional)
+         ○ Yes  ● No
+   ```
+
+7. Készen vegyunk, a megfelelő almappában (a példa esetében az `opposite-orbit` mappában) lesz az új Astro Starlight oldal!
+{% /steps %}
+
+Ebben a pillanatban tehát a tárolónk mappastruktúrája az alábbi:
+
+{% filetree %}
+- adr
+  - 01-architecture-style.md
+- **opposite-orbit/** Itt található az Astro Starlight oldal
+  - .vscode/ VSCode konfiguráció
+  - public/ As-is, feldolgozás nélkül kiszolgált fájlok.
+  - src/ Az oldal forrása és a feldolgozásra kerülő assetek.
+  - .gitignore
+  - astro.config.mjs Az Astro oldalunk konfigurációs beállításai.
+  - package.json Az Astro oldal függőségeinek leírása.
+  - README.md
+  - tsconfig.json TypeScript-konfiguráció.
+- ac.md
+- as.md
+- asr.md
+- diagram.likec4
+- esettanulmany.md
+- README.md
+- srs.doc
+{% /filetree %}
+
+### Egy szinttel fentébb helyezés
+
+Sajnos az Astro csak egy üres (vagy még nem létező) mappába tud új oldalt létrehozni, ezért volt szükség arra, hogy először egy almappába kerüljön az oldalunk. A továbbiakban viszont erre nincsen szükség, így helyezzünk a megfelelő fájlokat eggyel fentébb.
+
+{% steps %}
+
+1. Lépjünk be abba a mappába, melybe a tárolót klónoztuk.
+
+   ```bash
+   cd opposite-orbit
+   mv public src .gitignore astro.config.mjs package.json tsconfig.json ../
+   ```
+
+2. Majd távolítsuk el az immár szükségtelen mappát.
+
+   ```bash
+   cd ..
+   rm -rf ./opposite-orbit
+   ```
+
+{% /steps %}
+
+Azaz, a fájlstruktúra ebben a pillanatban az alábbi:
+
+{% filetree %}
+- adr
+  - 01-architecture-style.md
+- public/
+- src/
+- .gitignore
+- ac.md
+- as.md
+- asr.md
+- astro.config.mjs
+- diagram.likec4
+- esettanulmany.md
+- package.json
+- README.md
+- srs.doc
+- tsconfig.json
+{% /filetree %}
+
+### Az első futtatás
+
+Itt az ideje, hogy kipróbáljuk, működik-e az oldalunk!
+
+{% steps %}
+
+1. Ehhez először is telepítsük fel az oldal függőségeit (csak egyszer kell megtenni!). Ez igénybe vehet akár 1-2 percet is.
+
+   ```bash
+   npm i
+   ```
+
+2. Utána viszont már indulhatunk:
+
+   ```bash
+   npm run dev
+   ```
+
+{% /steps %}
+
+Hagyjuk a fenti parancsot futni, és navigáljunk az alapértelmezés szerinti [`localhost:4321`](localhost:4321) címre.
+
+Ha minden jól ment, akkor az alábbi oldal fog minket köszönteni:
+
+![Astro Starlight](../../../../assets/starlight-hello.png)
+
+### A meglevő fájlok áthelyezése
+
+Most már csak be kell laknunk a Starlight oldalunkat.
+
+Ehhez helyezzük át a meglevő fájljainkat a következő módon:
+
+{% filetree %}
+- public
+  - srs.doc
+- src
+  - content
+    - docs
+      - adr
+        - 01-architecture-style.md
+      - ac.md
+      - as.md
+      - asr.md
+      - esettanulmany.md
+- .gitignore
+- astro.config.mjs
+- diagram.likec4
+- package.json
+- README.md
+- tsconfig.json
+{% /filetree %}
+
+A Starlight megköveteli, hogy a Markdown fájlok mindegyike rendelkezzen egy úgynevezett [Frontmatter](https://starlight.astro.build/reference/frontmatter/) szekcióval, melynek két kötelező eleme van: `title` és `description`.
+
+Például az `as.md` fájlunk esetén a Frontmatter az alábbi lehet:
+
+```md
+// as.md
+---
+title: "Architekturális stílus"
+description: "A választott architekturális stílusok leírása."
+---
+
+A projekthez választott architekturális stílusok az alábbiak:
+- Event-driven architecture.
+- Modular monolith.
+
+...
+```
+
+Adjunk hozzá megfelelő Frontmatter részt az áthelyezett Markdown fájlokhoz! Ezt követően (egy esetleges újraindítás után) már szépen meg fognak jelenni a Markdown fájlokból kigenerált lapok, például [`localhost:4321/as`](localhost:4321/as).
+
+Észrevehetjük, ugyanakkor, hogy az oldalsó menü még nem tartalmazza a saját lapjainkat. Ehhez módosítanunk kell az `astro.config.mjs` fájl tartalmát:
+
+```js
+// astro.config.mjs
+// @ts-check
+import { defineConfig } from "astro/config";
+import starlight from "@astrojs/starlight";
+
+// https://astro.build/config
+export default defineConfig({
+  integrations: [
+    starlight({
+      title: "My Docs",
+      social: [
+        {
+          icon: "github",
+          label: "GitHub",
+          href: "https://github.com/withastro/starlight",
+        },
+      ],
+      sidebar: [
+        {
+          label: "Esettanulmány",
+          slug: "esettanulmany",
+        },
+        {
+          label: "SRS",
+          link: "/srs.doc",
+        },
+        {
+          label: "Architekturális karakterisztikák",
+          slug: "ac",
+        },
+        {
+          label: "Architekturálisan szignifikáns követelmények",
+          slug: "asr",
+        },
+        {
+          label: "Architekturális stílus",
+          slug: "as",
+        },
+        {
+          label: "Döntési jegyzőkönyvek",
+          autogenerate: { directory: "adr" },
+        },
+      ],
+    }),
+  ],
+});
+```
+
+A lapok többségét maunálisan hivatkozzuk be `slug` segítségével, akad azonban két kivétel:
+- Az SRS, mivel nem a `docs` mappában helyezkedik el, hanem egy, a `public` mappában található Word fájl, ezért közvetlen linkként van behivatkozva.
+- ADR-ből pedig több is lehet, ezért itt csak az `adr` mappát adjuk meg, aminek tartalmát a Starlight automatikusan be fogja olvasni.
+
+{% aside type="tip" %}
+Az oldalsáv beállítási lehetőségeiről részletesen itt olvashatunk:
+- [https://starlight.astro.build/guides/sidebar/](https://starlight.astro.build/guides/sidebar/)
+{% /aside %}
+
+### C4 diagramok
+
+Minden Markdown helyben, azaz most már csak a C4 diagramok hiányoznak. Ezeket a `diagram.likec4` fájl `systemContextDiagram` és `containerDiagram` nézete írja le. Lássuk, miként tudjuk ezeket megjeleníteni!
+
+Kezdjük a LikeC4-támogatás bekapcsolásával.
+
+{% aside type="caution" title="Figyelem" %}
+
+A lenti lépések megtalálhatók a LikeC4 hivatalos dokumentációjában is:
+- [https://likec4.dev/tooling/vite-plugin/#with-astro](https://likec4.dev/tooling/vite-plugin/#with-astro)
+
+Azonban figyeljünk arra, hogy a hivatalos lépéssor hiányos: nem tartalmazza a React telepítését, mely azonban elengedhetetlen a LikeC4-támogatás megfelelő működéséhez.
+{% /aside %}
+
+{% steps %}
+
+1. Telepítsük a React Astro bővítményt. A feltett kérdésekre válaszoljunk igennel.
+
+   ```bash
+   npm run astro add react
+   ```
+
+2. Telepítsük a LikeC4 függőséget.
+
+   ```bash
+   npm i likec4
+   ```
+
+3. Kapcsoljuk be a LikeC4 támogatást az `astro.config.mjs` konfigurációs fájlunkban.
+
+   ```js {% meta="{7,11-13}" %}
+   // astro.config.mjs
+   // @ts-check
+   import { defineConfig } from "astro/config";
+   import starlight from "@astrojs/starlight";
+
+   import react from "@astrojs/react";
+   import { LikeC4VitePlugin } from "likec4/vite-plugin";
+
+   // https://astro.build/config
+   export default defineConfig({
+     vite: {
+       plugins: [LikeC4VitePlugin({})],
+     },
+     integrations: [
+       starlight({
+         title: "My Docs",
+         social: [
+           {
+             icon: "github",
+             label: "GitHub",
+             href: "https://github.com/withastro/starlight",
+           },
+         ],
+         sidebar: [
+           {
+             label: "Esettanulmány",
+             slug: "esettanulmany",
+           },
+           {
+             label: "SRS",
+             link: "/srs.doc",
+           },
+           {
+             label: "Architekturális karakterisztikák",
+             slug: "ac",
+           },
+           {
+             label: "Architekturálisan szignifikáns követelmények",
+             slug: "asr",
+           },
+           {
+             label: "Architekturális stílus",
+             slug: "as",
+           },
+           {
+             label: "Döntési jegyzőkönyvek",
+             autogenerate: { directory: "adr" },
+           },
+         ],
+       }),
+       react(),
+     ],
+   });
+   ```
+
+4. Hozzunk létre egy új [Astro komponenst](https://docs.astro.build/en/basics/astro-components/), mely a LikeC4 diagramok megjelenítéséért lesz felelős. A komponens kódja az `src/components/LikeC4View.astro` nevű fájlban legyen:
+
+   ```astro
+   // src/components/LikeC4View.astro
+   ---
+   import { LikeC4View as ReactLikeC4View, type LikeC4ViewId } from 'likec4:react';
+   interface Props {
+     viewId: LikeC4ViewId;
+   }
+   const { viewId } = Astro.props
+   ---
+
+   <ReactLikeC4View
+     viewId={viewId}
+     {/* Configure view */}
+     controls={false}
+     browser={{
+       // options for likec4 browser
+       enableFocusMode: false,
+       enableSearch: false,
+     }}
+     client:only="react">
+   </ReactLikeC4View>
+   ```
+
+{% /steps %}
+
+Ezen a ponton az Astro oldalunk már képes LikeC4 diagramok megjelenítésére.
+
+Tegyünk is így, készítsünk egy új lapot, mely tartalmazza mindkét nézetet. Ezúttal Markdown helyett egy MDX fájlt fogunk létrehozni, annak érdekében, hogy használhassuk az imént összerakott `LikeC4View` komponenst:
+
+{% aside type="tip" %}
+Az MDX-ről bővebben itt olvashatunk:
+- [https://mdxjs.com/docs/what-is-mdx/](https://mdxjs.com/docs/what-is-mdx/)
+{% /aside %}
+
+```mdx
+// src/content/docs/c4.mdx
+---
+title: "C4 diagramok"
+description: "C4 diagramok."
+---
+
+import LikeC4View from '../../components/LikeC4View.astro';
+
+<LikeC4View viewId="systemContextDiagram" />
+<LikeC4View viewId="containerDiagram" />
+```
+
+Ügyeljünk arra, hogy az `import` elérési útja, valamint a diagramnézetek nevei helyesek legyenek!
+
+Egy újraindítás után a fenti lap a [`localhost:4321/c4`](localhost:4321/c4) címen lesz elérhető:
+
+
+![C4](../../../../assets/c4-page.png)
+
+{% aside type="caution" %}
+Ne felejtsük el hozzáadni az oldalsó sávhoz is az új lapot!
+{% /aside %}
+
+### További lépések
+
+Az alapok így már rendben vannak (a szükséges dokumentumok elérhetők), azonban az oldalunkat még sokféle módon csinosíthatjuk, hogy valóban egy igazi dokumentációs oldal érzetét keltse:
+
+- Hozzáadhatunk logót, módosíthatjuk a színeket, a betűtípusokat, a kezdőlapot:
+  - [https://starlight.astro.build/guides/customization/](https://starlight.astro.build/guides/customization/)
+- Használhatunk beépített Starlight komponenseket kódrészletekhez, kártyákhoz, megjegyzésekhez:
+  - [https://starlight.astro.build/components/using-components/](https://starlight.astro.build/components/using-components/)
+- Készíthetünk tetszőleges új lapokat, kiegészíthetjük a fentieket, és így tovább!
+
+## Közösen: ChocoMarket GitHub Pages
+
+A saját eszközünkön immár remekül működik az oldal, azonban mit ér egy weboldal, ami csak localhoston működik? Na, ugye! Valahogy ki kell helyeznünk a nyilvános internetre.
+
+### A terv
+
+Amikor keretrendszert választottunk, az egyik legfontosabb követelmény a statikus weboldalak generálására volt. Az ilyen weboldalak nem igényelnek aktív szerver-oldali komponenseket, hiszen csak egyszerű HTML/CSS/JS fájlokból állnak. Ennek következtében nagyon olcsón és hatékonyan kiszolgálhatók.
+
+#### Szolgáltató
+
+Több szolgáltató is specializálódott az ilyen oldalak kiszolgálására:
+- [Netlify](https://www.netlify.com/)
+- [Surge](https://surge.sh/)
+- [Cloudflare Pages](https://pages.cloudflare.com/)
+
+Szerencsére nekünk ezek egyikére sincs szükségünk, hiszen mindez közvetlenül a GitHubon is megoldható, a GitHub Pages nevű szolgáltatáson keresztül:
+- [What is GitHub Pages?](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)
+
+#### Domain
+
+Már van „backend”, ami kiszolgálja az oldalunkat, viszont kell neki egy cím is, ahol a látogatók elérik.
+
+A GitHub Pages minden organization számára biztosít egy [aldomaint](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#types-of-github-pages-sites):
+
+```
+ORGANIZATION.github.io
+```
+
+A mi esetünkben ez az alábbi:
+
+```
+unideb-advanced-software-engineering.github.io
+```
+
+A megfelelő aldomain alatt pedig minden tároló kap egy elérési utat:
+
+```
+ORGANIZATION.github.io/REPO
+```
+
+A ChocoMarket dokumentációs oldala tehát az alábbi címen lesz elérhető:
+
+```
+unideb-advanced-software-engineering.github.io/26-tavasz-00-chocomarket
+```
+
+#### Kihelyezés
+
+Az utolsó megválaszolandó kérdés a kihelyezés (deployment). Mikor, mit és hogyan fogunk kihelyezni a fenti címre?
+
+- Mikor?
+  - Kézenfekvő, hogy akárhányszor történik egy `push` a GitHub tárolónkba, mindannyiszor kihelyezzünk egy új verziót a dokumentációs oldalból.
+- Mit?
+  - Az Astro oldalunk statikus változatát. Amikor lokálisan problálgatjuk az oldalt az `npm run dev` paranccsal, akkor az Astro egy teszt szervert futtat, mely minden módosításunkra reagál. Az oldal végleges, statikus változatának előállításához egy [másik parancsra](https://docs.astro.build/en/develop-and-build/#build-and-preview-your-site) van szükség: `npm run build`.
+- Hogyan?
+  - Mindezt kézzel is csinálhatnánk, azonban az igen fárasztó és törékeny munkafolyamat lenne, ezért a kihelyezést automatizálni fogjuk a GitHub CI/CD szolgáltatásával, a [GitHub Actions](https://github.com/features/actions)-szel.
+
+Vágjunk is bele!
+
+### A megvalósítás
+
+{% steps %}
+
+1. Adjuk hozzá az oldalunk címét a konfigurációhoz.
+
+   ```js {% meta="{11-12}" %}
+   // astro.config.mjs
+   // @ts-check
+   import { defineConfig } from "astro/config";
+   import starlight from "@astrojs/starlight";
+
+   import react from "@astrojs/react";
+   import { LikeC4VitePlugin } from "likec4/vite-plugin";
+
+   // https://astro.build/config
+   export default defineConfig({
+     site: "https://unideb-advanced-software-engineering.github.io",
+     base: "/26-tavasz-00-chocomarket",
+     vite: {
+       plugins: [LikeC4VitePlugin({})],
+     },
+     integrations: [
+       starlight({
+         title: "My Docs",
+         social: [
+           {
+             icon: "github",
+             label: "GitHub",
+             href: "https://github.com/withastro/starlight",
+           },
+         ],
+         sidebar: [
+           {
+             label: "Esettanulmány",
+             slug: "esettanulmany",
+           },
+           {
+             label: "SRS",
+             link: "/srs.doc",
+           },
+           {
+             label: "Architekturális karakterisztikák",
+             slug: "ac",
+           },
+           {
+             label: "Architekturálisan szignifikáns követelmények",
+             slug: "asr",
+           },
+           {
+             label: "Architekturális stílus",
+             slug: "as",
+           },
+           {
+             label: "Döntési jegyzőkönyvek",
+             autogenerate: { directory: "adr" },
+           },
+         ],
+       }),
+       react(),
+     ],
+   });
+   ```
+
+2. Készítsük el a kihelyezésről gondoskodó GitHub Actions workflow-t a `.github/workflows/deploy.yml` fájlban.
+
+   ```yml
+   // .github/workflows/deploy.yml
+   name: Deploy to GitHub Pages
+
+   on:
+     # Trigger the workflow every time you push to the `main` branch
+     # Using a different branch name? Replace `main` with your branch’s name
+     push:
+       branches: [ main ]
+     # Allows you to run this workflow manually from the Actions tab on GitHub.
+     workflow_dispatch:
+
+   # Allow this job to clone the repo and create a page deployment
+   permissions:
+     contents: read
+     pages: write
+     id-token: write
+
+   jobs:
+     build:
+       runs-on: ubuntu-latest
+       steps:
+         - name: Checkout your repository using git
+           uses: actions/checkout@v6
+         - name: Install, build, and upload your site
+           uses: withastro/action@v6
+           # with:
+             # path: . # The root location of your Astro project inside the repository. (optional)
+             # node-version: 24 # The specific version of Node that should be used to build your site. Defaults to 22. (optional)
+             # package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
+             # build-cmd: pnpm run build # The command to run to build your site. Runs the package build script/task by default. (optional)
+           # env:
+             # PUBLIC_POKEAPI: 'https://pokeapi.co/api/v2' # Use single quotation marks for the variable value. (optional)
+
+     deploy:
+       needs: build
+       runs-on: ubuntu-latest
+       environment:
+         name: github-pages
+         url: ${{ steps.deployment.outputs.page_url }}
+       steps:
+         - name: Deploy to GitHub Pages
+           id: deployment
+           uses: actions/deploy-pages@v5
+   ```
+
+3. Rákenroll.
+
+   ```bash
+   git push
+   ```
+
+{% /steps %}
+
+{% aside type="tip" %}
+Az Astro-GitHub Pages kihelyezési folyamatról tovább információt itt olvashatunk:
+- [https://docs.astro.build/en/guides/deploy/github/](https://docs.astro.build/en/guides/deploy/github/)
+{% /aside %}
+
+Ha mindent jól csináltunk, akkor az oldalunk néhány percen belül kikerül a megfelelő címre.
+
+A kihelyezést a tárolónk GitHub oldalán tudjuk ellenőrizni, például a ChocoMarket esetén:
+- [https://github.com/unideb-advanced-software-engineering/26-tavasz-00-chocomarket/deployments](https://github.com/unideb-advanced-software-engineering/26-tavasz-00-chocomarket/deployments)
+
+## Házi feladat
+
+Végezzük el a fenti lépéseket a csoportunk tárolójára, és készítsünk egy esztétikus, jól navigálható, logikusan felépített dokumentációs oldalt az esettanulmányunk megoldásához!
