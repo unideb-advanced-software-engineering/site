@@ -9,6 +9,7 @@ next: false
 A key element of the exercises is the semester-long project work.
 
 Students are divided into groups of 2-4 and work on the same project throughout the semester, giving them time to thoroughly familiarize themselves with the problem to be solved. At the end of the semester, the submitted project work forms the basis for grading.
+
 ## Requirements
 
 Both the practical signature and the course grade depend on the project work.
@@ -22,14 +23,14 @@ The requirements for obtaining a practical signature are as follows
 The above is supplemented by the known requirement regarding absences: students may miss a maximum of three practical sessions.
 {% linkcard title="GitHub"
    href="https://github.com/unideb-advanced-software-engineering"
-   description="Ugrás a csoportok tárolóit tartalmazó GitHub szervezethez."
+   description="Jump to the GitHub organization containing the group repositories."
    /%}
 
 ### The course grade
 
 Team members receive their course grades for the oral defense of the documentation submitted as part of the project work.
 {% aside type="caution" %}
-The exact procedure for the defense will be announced later in the semester.
+The exact procedure for the defense will be communicated in the following days.
 {% /aside %}
 
 
@@ -38,22 +39,76 @@ The exact procedure for the defense will be announced later in the semester.
 A project is considered complete if it contains **all** of the documentation elements listed below.
 
 Documentation elements are **only** considered submitted if they are available on the `main` branch of the group's GitHub repository.
-{% aside type="caution" %}
-This list will be continuously expanded as the semester progresses (and with the appropriate exercises).
+
+### General Requirements
+
+All submitted documents must meet the following requirements:
+
+- The submitted documentation shoud be in English and You should ensure grammatical correctness and proper spelling.
+- Ensure that everything (whether a requirement, quality attribute, architectural characteristic, or architectural decision) can be clearly traced back to the original case study. In other words, almost every choice and decision ultimately stems from the original case study. The only exceptions are decisions based on the team’s experience and preferences (“We use JavaScript because we have extensive experience with it.”).
+
+We will compile the resulting documents into a publicly accessible Astro documentation site (potentially hosted via GitHub Pages), which should be:
+- easy and logical to navigate,
+- aesthetically pleasing.
+
+In addition to the required elements, the site may include optional content (related to the case study and the subject).
+
+{% aside type="caution" title="Attention" %}
+
+There is no single perfect solution for any of the case studies. There is no answer key against which to evaluate the submitted work.
+
+The basis for the evaluation is not your decisions themselves, but the context in which they were made: what options you considered and, above all, why you arrived at that particular decision.
+
 {% /aside %}
 
 ### Software Requirements Specification
 
-From the case study description, students derive specific requirements, based on which they fill in the relevant sections of the [IEEE SRS template](/site/srs-template.doc).
+Based on the case study description, students derive specific requirements, which they use to fill in the appropriate sections of the [IEEE SRS template](/site/srs-template.doc).
+
+Criteria for evaluating the SRS:
+- The document clearly states what problem the product solves, what functions it provides, and who the users are.
+- The relationship between the software and the external environment is described: the external systems used and the various interfaces.
+- All major functionalities of the software are described in detail: who does what, why, and how.
+- Non-functional requirements and quality attribute scenarios related to the functionality are included.
+
+### Architectural Characteristics
+
+A list of the qualitative characteristics that define the architecture of the application to be developed. In other words, a compilation of architectural characteristics.
+
+Each characteristic must be accompanied by an explanation of why it is considered an architectural characteristic.
 
 ### Architecturally Significant Requirements
 
 A list of requirements that define the architecture of the application to be developed.
 
-Each requirement must be accompanied by a justification explaining why it is considered an ASR.
+Each requirement must be accompanied by an explanation of why it qualifies as an ASR.
 
-### Architctural Characteristics
+### Architecture Style
 
-Listing the quality attributes that determine the architecture of the application to be developed. In other words, compiling the architectural characteristics.
+At least one, but likely more than one, selected architectural style.
 
-Each characteristic must be accompanied by an explanation of why it is considered an architectural characteristic.
+Different subsystems may require different styles, and in the case of distributed systems, the architecture of individual components may be relevant.
+
+The selected architectural style(s) must be documented in an ADR.
+
+### Architectural Decision Record
+
+**At least 3** (*5 or more recommended*) ADRs in any style (Y-Statement, Nygard, MADR, etc.), each of which documents an architecturally significant decision.
+
+What kinds of decisions might these be? Here are a few examples (in addition to documenting the styles):
+- Breaking down the system into subsystems and components. Whether you used ADD or not, your system will inevitably have smaller components. Countless ADRs can be created for this breakdown.
+- Communication style and implementation between components.
+- Data storage considerations.
+- Selected technologies.
+
+### C4 Diagram
+
+Create the following diagrams for the software:
+
+- C4 System Context diagram,
+- C4 Container diagram.
+
+The diagrams should be:
+- informative (take full advantage of the capabilities provided by LikeC4),
+- consistent (for example, label the same thing in the same way),
+- aesthetically pleasing.

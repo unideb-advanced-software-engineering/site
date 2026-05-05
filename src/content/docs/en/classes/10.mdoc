@@ -1,0 +1,662 @@
+---
+title: "10: Astro documentation page"
+description: "Architectural Decision Records, Astro Starlight."
+next: false
+---
+
+{% aside title="Project work outputs" icon="add-document" %}
+- The previously created documents will be available on a publicly accessible Astro documentation page.
+{% /aside %}
+
+{% aside type="caution" title="Homework" icon="laptop" %}
+Create an Astro page and potentially deploy it to GitHub Pages.
+{% /aside %}
+
+## Introduction
+
+### Why are we creating a documentation page?
+
+Throughout the semester, we expanded our case study with new documents from one lab session to the next. These documents (with the exception of the SRS file) were created in Markdown and LikeC4, which, although readable by humans, are better suited for machine processing. Just consider that both Markdown and LikeC4 require a dedicated viewer.
+
+In order to make the resulting documentation more accessible and readable for people (especially non-experts!), we will create a [Astro](https://astro.build/) [Starlight](https://starlight.astro.build/)-based documentation site. This eliminates the need for specialized viewing software; the target audience will be able to view the documentation using just a web browser.
+
+### Why are we using Astro?
+
+Our requirements for the documentation site are quite simple:
+- We want a static site with no server-side logic.
+- Our existing Markdown and LikeC4 files should be able to be added with minimal modification.
+- There should be no need for extensive configuration.
+
+Astro, and specifically its Starlight template, largely meets these requirements, since:
+- By default, it generates a static site.
+- It comes with built-in Markdown and MDX support, and LikeC4 support can be provided via plugins.
+- If we don't want any frills, the configuration requirements are minimal.
+
+It is also worth noting that Astro is one of today's [most popular web frameworks](https://astro.build/blog/year-in-review-2025/), which can be used—beyond just documentation sites—to create any kind of website, primarily content-based ones.
+
+## Together: ChocoMarket Astro Conversion
+
+In the following, we will “Astro-fy” the ChocoMarket case study developed so far.
+
+### Before
+
+In other words, where are we now? In its current form, the ChocoMarket repository contains the following files:
+
+{% filetree %}
+- adr
+  - 01-architecture-style.md
+- ac.md
+- as.md
+- asr.md
+- diagram.likec4
+- case-study.md
+- README.md
+- srs.doc
+{% /filetree %}
+
+### Initializing Starlight
+
+{% aside type="caution" title="Node.js" %}
+A prerequisite for working with Astro is that the server-side JavaScript runtime environment called Node.js must be available on your device.
+
+You can install it from here:
+- [https://nodejs.org/en](https://nodejs.org/en)
+
+Or you can use an environment management tool, such as:
+- [mise](https://mise.jdx.dev/)
+- [asdf](https://asdf-vm.com/)
+{% /aside %}
+
+As a first step, let's create a new, empty Astro Starlight page by following the official instructions:
+
+{% steps %}
+
+1. Navigate to the folder where you cloned the repository.
+
+   ```bash
+   cd 26-spring-00-chocomarket
+   ```
+
+2. Run the command found on the [Starlight: Getting Started](https://starlight.astro.build/getting-started/) page.
+
+   ```bash
+   npm create astro@latest -- --template starlight
+   ```
+3. This will start the initialization process, the first step of which is installing the `create-astro` package (if it is not already available). Feel free to accept this:
+
+   ```
+   Need to install the following packages:
+   create-astro@5.0.6
+   Ok to proceed? (y)
+   ```
+
+4. Next, we need to specify the folder where the new project should be created. By default, an automatically generated folder name (such as `./opposite-orbit`) is displayed here, which we can safely leave as is.
+
+   ```
+   astro   Launch sequence initiated.
+
+   dir   Where should we create your new project?
+         ./opposite-orbit
+   ```
+
+5. When installing dependencies, select `No` using the right arrow key:
+
+   ```
+   deps   Install dependencies? (recommended)
+          ○ Yes  ● No
+   ```
+
+6. Similarly, decline the creation of a Git repository:
+
+   ```
+   git   Initialize a new Git repository? (optional)
+         ○ Yes  ● No
+   ```
+
+7. All done! The new Astro Starlight site will be located in the appropriate subfolder (in this example, the `opposite-orbit` folder)!
+{% /steps %}
+
+At this point, the directory structure of our repository is as follows:
+
+{% filetree %}
+- adr
+  - 01-architecture-style.md
+- **opposite-orbit/** This is where the Astro Starlight site is located
+  - .vscode/ VSCode configuration
+  - public/ Files served as-is, without processing.
+  - src/ The site's source code and assets to be processed.
+  - .gitignore
+  - astro.config.mjs Configuration settings for our Astro site.
+  - package.json Description of the Astro site's dependencies.
+  - README.md
+  - tsconfig.json TypeScript configuration.
+- ac.md
+- as.md
+- asr.md
+- diagram.likec4
+- case-study.md
+- README.md
+- srs.doc
+{% /filetree %}
+
+### Moving Up One Level
+
+Unfortunately, Astro can only create a new page in an empty (or non-existent) folder, which is why we first had to place our page in a subfolder. However, this is no longer necessary, so let's move the relevant files up one level.
+
+{% steps %}
+
+1. Navigate to the folder where we cloned the repository.
+
+   ```bash
+   cd opposite-orbit
+   mv public src .gitignore astro.config.mjs package.json tsconfig.json ../
+   ```
+
+2. Then delete the now-unnecessary folder.
+
+   ```bash
+   cd ..
+   rm -rf ./opposite-orbit
+   ```
+
+{% /steps %}
+
+In other words, the file structure at this point is as follows:
+
+{% filetree %}
+- adr
+  - 01-architecture-style.md
+- public/
+- src/
+- .gitignore
+- ac.md
+- as.md
+- asr.md
+- astro.config.mjs
+- diagram.likec4
+- case-study.md
+- package.json
+- README.md
+- srs.doc
+- tsconfig.json
+{% /filetree %}
+
+### First Run
+
+It's time to test whether our site works!
+
+{% steps %}
+
+1. First, let's install the site's dependencies (you only need to do this once!). This may take up to 1-2 minutes.
+
+   ```bash
+   npm i
+   ```
+
+2. After that, we're ready to go:
+
+   ```bash
+   npm run dev
+   ```
+
+{% /steps %}
+
+Let the command above run, and navigate to the default address [`localhost:4321`](localhost:4321).
+
+If everything went well, you'll be greeted by the following page:
+
+![Astro Starlight](../../../../assets/starlight-hello.png)
+
+### Moving Existing Files
+
+Now we just need to populate our Starlight site.
+
+To do this, move your existing files as follows:
+
+{% filetree %}
+- public
+  - srs.doc
+- src
+  - content
+    - docs
+      - adr
+        - 01-architecture-style.md
+      - ac.md
+      - as.md
+      - asr.md
+      - case-study.md
+- .gitignore
+- astro.config.mjs
+- diagram.likec4
+- package.json
+- README.md
+- tsconfig.json
+{% /filetree %}
+
+Starlight requires that every Markdown file have a section called [Frontmatter](https://starlight.astro.build/reference/frontmatter/), which has two mandatory elements: `title` and `description`.
+
+For example, for our `as.md` file, the Frontmatter could look like this:
+
+```md
+// as.md
+---
+title: "Architectural Style"
+description: "A description of the chosen architectural styles."
+---
+
+The architectural styles chosen for the project are as follows:
+- Event-driven architecture.
+- Modular monolith.
+
+...
+```
+
+Add the appropriate Frontmatter section to the moved Markdown files! After that (and possibly after a restart), the pages generated from the Markdown files will display properly, for example [`localhost:4321/as`](localhost:4321/as).
+
+However, you may notice that the sidebar menu does not yet contain your own pages. To fix this, you need to modify the contents of the `astro.config.mjs` file:
+
+```js
+// astro.config.mjs
+// @ts-check
+import { defineConfig } from "astro/config";
+import starlight from "@astrojs/starlight";
+
+// https://astro.build/config
+export default defineConfig({
+  integrations: [
+    starlight({
+      title: "My Docs",
+      social: [
+        {
+          icon: "github",
+          label: "GitHub",
+          href: "https://github.com/withastro/starlight",
+        },
+      ],
+      sidebar: [
+        {
+          label: "Case Study",
+          slug: "case-study",
+        },
+        {
+          label: "SRS",
+          link: "/srs.doc",
+        },
+        {
+          label: "Architectural Characteristics",
+          slug: "ac",
+        },
+        {
+          label: "Architecturally Significant Requirements",
+          slug: "asr",
+        },
+        {
+          label: "Architectural style",
+          slug: "as",
+        },
+        {
+          label: "Decision logs",
+          autogenerate: { directory: "adr" },
+        },
+      ],
+    }),
+  ],
+});
+```
+
+We manually link to most of the pages using `slug`, but there are two exceptions:
+- The SRS, since it is not located in the `docs` folder but is a Word file in the `public` folder, is linked to directly.
+- There may be multiple ADR files, so here we only specify the `adr` folder, the contents of which Starlight will automatically read.
+
+{% aside type="tip" %}
+You can read more about the sidebar settings here:
+- [https://starlight.astro.build/guides/sidebar/](https://starlight.astro.build/guides/sidebar/)
+{% /aside %}
+
+### C4 Diagrams
+
+All the Markdown is in place, so now only the C4 diagrams are missing. These are defined by the `systemContextDiagram` and `containerDiagram` views in the `diagram.likec4` file. Let's see how we can display them!
+
+Let's start by enabling LikeC4 support.
+
+{% aside type="caution" title="Warning" %}
+
+The steps below can also be found in the official LikeC4 documentation:
+- [https://likec4.dev/tooling/vite-plugin/#with-astro](https://likec4.dev/tooling/vite-plugin/#with-astro)
+
+However, please note that the official instructions are incomplete: they do not include the installation of React, which is essential for LikeC4 support to work properly.
+{% /aside %}
+
+{% steps %}
+
+1. Install the React Astro plugin. Answer "yes" to the prompts.
+
+   ```bash
+   npm run astro add react
+   ```
+
+2. Install the LikeC4 dependency.
+
+   ```bash
+   npm i likec4
+   ```
+
+3. Enable LikeC4 support in our `astro.config.mjs` configuration file.
+
+   ```js {% meta="{7,11-13}" %}
+   // astro.config.mjs
+   // @ts-check
+   import { defineConfig } from "astro/config";
+   import starlight from "@astrojs/starlight";
+
+   import react from "@astrojs/react";
+   import { LikeC4VitePlugin } from "likec4/vite-plugin";
+
+   // https://astro.build/config
+   export default defineConfig({
+     vite: {
+       plugins: [LikeC4VitePlugin({})],
+     },
+     integrations: [
+       starlight({
+         title: "My Docs",
+         social: [
+           {
+             icon: "github",
+             label: "GitHub",
+             href: "https://github.com/withastro/starlight",
+           },
+         ],
+         sidebar: [
+           {
+             label: "Case Study",
+             slug: "case-study",
+           },
+           {
+             label: "SRS",
+             link: "/srs.doc",
+           },
+           {
+             label: "Architectural Characteristics",
+             slug: "ac",
+           },
+           {
+             label: "Architecturally Significant Requirements",
+             slug: "asr",
+           },
+           {
+             label: "Architectural style",
+             slug: "as",
+           },
+           {
+             label: "Decision logs",
+             autogenerate: { directory: "adr" },
+           },
+         ],
+       }),
+       react(),
+     ],
+   });
+   ```
+
+4. Create a new [Astro component](https://docs.astro.build/en/basics/astro-components/) that will be responsible for displaying LikeC4 charts. The component's code should be in a file named `src/components/LikeC4View.astro`:
+
+   ```astro
+   // src/components/LikeC4View.astro
+   ---
+   import { LikeC4View as ReactLikeC4View, type LikeC4ViewId } from 'likec4:react';
+   interface Props {
+     viewId: LikeC4ViewId;
+   }
+   const { viewId } = Astro.props
+   ---
+
+   <ReactLikeC4View
+     viewId= {viewId}
+     {/* Configure view */}
+     controls={false}
+     browser={{
+       // options for likec4 browser
+       enableFocusMode: false,
+       enableSearch: false,
+     }}
+     client:only="react">
+   </ReactLikeC4View>
+   ```
+
+{% /steps %}
+
+At this point, our Astro page is already capable of displaying LikeC4 charts.
+
+Let's go ahead and create a new page that includes both views. This time, instead of Markdown, we'll create an MDX file so that we can use the `LikeC4View` component we just put together:
+
+{% aside type="tip" %}
+You can read more about MDX here:
+- [https://mdxjs.com/docs/what-is-mdx/](https://mdxjs.com/docs/what-is-mdx/)
+{% /aside %}
+
+```mdx
+// src/content/docs/c4.mdx
+---
+title: "C4 diagrams"
+description: "C4 diagrams."
+---
+
+import LikeC4View from '../../components/LikeC4View.astro';
+
+<LikeC4View viewId="systemContextDiagram" />
+<LikeC4View viewId="containerDiagram" />
+```
+
+Make sure the `import` path and the names of the diagram views are correct!
+
+After a restart, the page above will be available at [`localhost:4321/c4`](localhost:4321/c4):
+
+
+![C4](../../../../assets/c4-page.png)
+
+{% aside type="caution" %}
+Don't forget to add the new page to the sidebar as well!
+{% /aside %}
+
+### Next Steps
+
+The basics are now in place (the necessary documents are available), but there are still many ways we can spruce up our site to make it feel like a real documentation site:
+
+- We can add a logo, change the colors, fonts, and the homepage:
+  - [https://starlight.astro.build/guides/customization/](https://starlight.astro.build/guides/customization/)
+- We can use built-in Starlight components for code snippets, cards, and notes:
+  - [https://starlight.astro.build/components/using-components/](https://starlight.astro.build/components/using-components/)
+- We can create any new pages we want, add to the ones above, and so on!
+
+## Together: ChocoMarket GitHub Pages
+
+The site now works great on our own machine, but what good is a website that only runs on a localhost? Exactly! We need to get it out onto the public internet somehow.
+
+### The Plan
+
+When we chose a framework, one of the most important requirements was the ability to generate static websites. Such websites do not require active server-side components, as they consist solely of simple HTML/CSS/JS files. As a result, they can be served very cheaply and efficiently.
+
+#### Service Providers
+
+Several service providers specialize in hosting such sites:
+- [Netlify](https://www.netlify.com/)
+- [Surge](https://surge.sh/)
+- [Cloudflare Pages](https://pages.cloudflare.com/)
+
+Fortunately, we don't need any of these, since all of this can be handled directly on GitHub through a service called GitHub Pages:
+- [What is GitHub Pages?](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)
+
+#### Domain
+
+We already have a “backend” that hosts our site, but it also needs an address where visitors can reach it.
+
+GitHub Pages provides a [subdomain](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#types-of-github-pages-sites) for every organization:
+
+```
+ORGANIZATION.github.io
+```
+
+In our case, this is:
+
+```
+unideb-advanced-software-engineering.github.io
+```
+
+Under the appropriate subdomain, each repository is assigned a path:
+
+```
+ORGANIZATION.github.io/REPO
+```
+
+The ChocoMarket documentation page will therefore be available at the following address:
+
+```
+unideb-advanced-software-engineering.github.io/26-spring-00-chocomarket
+```
+
+#### Deployment
+
+The final question to address is deployment. When, what, and how will we deploy to the URL above?
+
+- When?
+  - It makes sense that every time we `push` to our GitHub repository, we deploy a new version of the documentation site.
+- What?
+  - The static version of our Astro site. When we test the site locally with the `npm run dev` command, Astro runs a test server that responds to all our changes. To generate the final, static version of the site, we need to run a [different command](https://docs.astro.build/en/develop-and-build/#build-and-preview-your-site): `npm run build`.
+- How?
+  - We could do all of this manually, but that would be a very tedious and fragile workflow, so we'll automate the deployment using GitHub's CI/CD service, [GitHub Actions](https://github.com/features/actions).
+
+Let's get started!
+
+### A megvalósítás
+
+{% steps %}
+
+1. Add our page's URL to the configuration.
+
+   ```js {% meta="{11-12}" %}
+   // astro.config.mjs
+   // @ts-check
+   import { defineConfig } from "astro/config";
+   import starlight from "@astrojs/starlight";
+
+   import react from "@astrojs/react";
+   import { LikeC4VitePlugin } from "likec4/vite-plugin";
+
+   // https://astro.build/config
+   export default defineConfig({
+     site: "https://unideb-advanced-software-engineering.github.io",
+     base: "/26-spring-00-chocomarket",
+     vite: {
+       plugins: [LikeC4VitePlugin({})],
+     },
+     integrations: [
+       starlight({
+         title: "My Docs",
+         social: [
+           {
+             icon: "github",
+             label: "GitHub",
+             href: "https://github.com/withastro/starlight",
+           },
+         ],
+         sidebar: [
+           {
+             label: "Case Study",
+             slug: "case-study",
+           },
+           {
+             label: "SRS",
+             link: "/srs.doc",
+           },
+           {
+             label: "Architectural Characteristics",
+             slug: "ac",
+           },
+           {
+             label: "Architecturally Significant Requirements",
+             slug: "asr",
+           },
+           {
+             label: "Architectural style",
+             slug: "as",
+           },
+           {
+             label: "Decision Records",
+             autogenerate: { directory: "adr" },
+           },
+         ],
+       }),
+       react(),
+     ],
+   });
+   ```
+2. Create the GitHub Actions workflow that handles the deployment in the `.github/workflows/deploy.yml` file.
+
+   ```yml
+   // .github/workflows/deploy.yml
+   name: Deploy to GitHub Pages
+
+   on:
+     # Trigger the workflow every time you push to the `main` branch
+     # Using a different branch name? Replace `main` with your branch's name
+     push:
+       branches: [ main ]
+     # Allows you to run this workflow manually from the Actions tab on GitHub.
+     workflow_dispatch:
+
+   # Allow this job to clone the repo and create a page deployment
+   permissions:
+     contents: read
+     pages: write
+     id-token: write
+
+   jobs:
+     build:
+       runs-on: ubuntu-latest
+       steps:
+         - name: Check out your repository using Git
+           uses: actions/checkout@v6
+         - name: Install, build, and upload your site
+           uses: withastro/action@v6
+           # with:
+             # path: . # The root location of your Astro project inside the repository. (optional)
+             # node-version: 24 # The specific version of Node that should be used to build your site. Defaults to 22. (optional)
+             # package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
+             # build-cmd: pnpm run build # The command to run to build your site. Runs the package build script/task by default. (optional)
+           # env:
+             # PUBLIC_POKEAPI: 'https://pokeapi.co/api/v2' # Use single quotation marks for the variable value. (optional)
+
+     deploy:
+       needs: build
+       runs-on: ubuntu-latest
+       environment:
+         name: github-pages
+         url: ${{ steps.deployment.outputs.page_url }}
+       steps:
+         - name: Deploy to GitHub Pages
+           id: deployment
+           uses: actions/deploy-pages@v5
+   ```
+
+3. Rock 'n' roll.
+
+   ```bash
+   git push
+   ```
+
+{% /steps %}
+
+{% aside type="tip" %}
+You can find more information about the Astro-GitHub Pages deployment process here:
+- [https://docs.astro.build/en/guides/deploy/github/](https://docs.astro.build/en/guides/deploy/github/)
+{% /aside %}
+
+If we've done everything correctly, our page will be deployed to the correct URL within a few minutes.
+
+We can check the deployment on our GitHub page, for example, in the case of ChocoMarket:
+- [https://github.com/unideb-advanced-software-engineering/26-spring-00-chocomarket/deployments](https://github.com/unideb-advanced-software-engineering/26-spring-00-chocomarket/deployments)
+
+## Homework
+
+Follow the steps above for our group's repository and create an aesthetically pleasing, easy-to-navigate, logically structured documentation page for our case study solution!

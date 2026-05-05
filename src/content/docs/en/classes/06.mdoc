@@ -1,38 +1,91 @@
 ---
 title: "06: ADR, Docs-as-code"
-description: "Architectural Decision Records, Astro Starlight."
-next: false
+description: "Architectural Decision Records"
 ---
 
-{% aside title="Project Work Outputs" icon="add-document" %}
-- Documentation of the previously selected architectural style in ADR format.
+{% aside title="Project work outputs" icon="add-document" %}
+- The previously chosen architectural style documented in ADR format.
 {% /aside %}
-
 
 {% aside type="caution" title="Homework" icon="laptop" %}
-Filling out and configuring the public website associated with the group's repository.
+The previously chosen architectural style documented in ADR format.
 {% /aside %}
 
-## Theory: Architectural Decision Records
+{% linkcard
+   title="Resource Collection: Architectural Decision Records"
+   href="/site/en/general/sources/#architectural-decision-records"
+   description="Go to related resources." /%}
 
-TBD
+## Theory: Architectural Decision Logs
+
+> Why is more important than how.
+>
+> The Second Law of Software Architecture
+
+The architectural design process is so exciting because there are no clear-cut, correct answers. Instead, we must repeatedly weigh alternatives and make compromises, prioritizing certain quality characteristics while de-emphasizing others. Such decisions might include, for example, choosing an architectural style or adopting a particular technology. The final architecture is essentially the result of this series of decisions.
+
+The importance of the final outcome of the decision is self-evident. Even more important, however, is the context of the decision:
+- The quality characteristics to be satisfied.
+- The alternatives that were rejected (and why).
+- The compromises that were accepted.
+
+While the final outcome of the decision is reflected in the architecture (if we decided to use a layered style, then the use of that style documents the decision), the context may fade from memory over time, preventing a later understanding of the decision and the effective evolution of the architecture. We can therefore be of great service not only to colleagues who join later, but also to our future selves, by documenting our decisions in detail.
+
+Architectural Decision Records (ADRs) serve this purpose; you can read more about them here:
+- [https://adr.github.io/](https://adr.github.io/)
+
+Although there are many different ADR formats, the essence of each is the same: documenting an architecturally significant decision and its context.
+
+In the following, we will use the [Y-Statement](https://medium.com/olzzio/y-statements-10eb07b5a177) format, which follows this template:
+
+```
+In the context of <use case/user story>,
+facing <concern>,
+we decided on <option>
+and rejected <other options>,
+to achieve <system qualities/desired consequences>,
+accepting <downside/undesired consequences>,
+because <additional rationale>.
+```
 
 ## Together: ChocoMarket ADR
 
-TBD
+Let's create the minutes of the [ChocoMarket](../../scenarios/00-chocomarket) architectural decision—specifically, the [selection](../05) of its architectural style—to date!
+
+```
+In the context of
+- the entire system
+facing
+- a different set of quality attributes for catalog reading and serving
+we decided on
+- a hybrid architecture
+and chose not to
+- select a single architectural style
+in order to ensure
+- that we can meet the different quality attributes
+while accepting
+- the complexity,
+- the additional operational burden,
+- and the additional maintenance burden.
+```
 
 ## Group Work: Architectural Style ADR
 
-TBD
-
-## Theory: Documentation as Code
-
-TBD
-
-## Together: Astro Starlight-based Website
-
-TBD
+Create an ADR in Y-Statement format for the architectural style chosen for our case study!
 
 ## Homework
 
-TBD
+Groups will create an ADR for the architectural style they previously selected.
+
+The ADR must be placed in the group's GitHub repository as follows:
+
+{% filetree %}
+- adr
+  - **01-architecture-style.md**
+- ac.md
+- as.md
+- asr.md
+- case-study.md
+- README.md
+- srs.doc
+{% /filetree %}

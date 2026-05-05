@@ -1,0 +1,111 @@
+---
+title: "09: Attribute-Driven Design"
+description: "Architectural Decision Records, Astro Starlight."
+next: false
+---
+
+{% aside title="Project work outputs" icon="add-document" %}
+- A C4 Container diagram.
+{% /aside %}
+
+{% aside type="caution" title="Homework" icon="laptop" %}
+The previously created C4 System Context diagram extended with a Container diagram.
+{% /aside %}
+
+{% linkcard
+   title="Resource Collection: C4 Model"
+   href="/site/en/general/sources/#C4-model"
+   description="Go to related resources." /%}
+
+{% linkcard
+   title="Resource Collection: Attribute-Driven Design"
+   href="/site/en/general/sources/#attribute-driven-design"
+   description="Go to related resources." /%}
+
+## Theory: Attribute-Driven Design 3.0
+
+In the previous exercise, we created a [C4 System Context](https://c4model.com/diagrams/system-context) diagram, which represents our system as a single black box. At this point, this representation accurately reflects reality: although we have already chosen an architectural style, we still have no concrete idea about the smaller components that make up the system.
+
+Now, however, it is time to “zoom in” on the system and begin breaking it down into smaller parts and refining it.
+
+The method known as Attribute-Driven Design (ADD), a structured, iterative design process, serves this purpose of decomposition and refinement.
+
+The principle of the method is extremely simple: starting from the significant requirements and an existing architecture (which could be just a single box, or the entire system), we iteratively refine until the resulting architecture meets the requirements.
+
+Something like this (feel free to zoom in on the page!):
+
+{% mermaid chartFile="content/mermaid/add.mermaid" /%}
+
+## Theory: C4 Containers
+
+The C4 model is a hierarchical system of concepts and diagrams.
+
+Following the entire system, the next concept in the hierarchy is the [container](https://c4model.com/abstractions/container), which can be, among other things:
+- a server-side web application,
+- a server-side service,
+- a client-side web application,
+- desktop software,
+- mobile application,
+- serverless function,
+- database,
+- and so on!
+
+The [container diagram](https://c4model.com/diagrams/container) is used to represent containers; similar to the system context diagram, there will be only one of these: the entire system, broken down into containers.
+
+{% aside type="caution" title="Terminology" %}
+Note that the C4 model and ADD use different terminology.
+
+That is, what is a container in the C4 model is generally called a component in ADD.
+{% /aside %}
+
+## Together: ChocoMarket Container Diagram
+
+Let's create a C4 Container Diagram for the [ChocoMarket](../../scenarios/00-chocomarket) case study!
+
+Note that while the System Context diagram could be created solely based on the SRS (by taking users, user groups, and external dependencies), creating the Container diagram requires us to make architectural decisions.
+
+That is, while creating the Container diagram, it is worth writing [ADRs](../06) as well, which we can then reference in the diagram.
+
+Architectural decisions relevant to the ChocoMarket Container diagram:
+- Hybrid architectural style.
+- EDA for loading catalogs, modular monolith for serving catalogs.
+- A single database for storing all data.
+- Writing scanned chocolates to the database via a single writer service.
+- Separate frontends for different user groups.
+
+{% likec4 viewId="containerDiagram" /%}
+
+{% linkcard
+   title="ChocoMarket Container Diagram"
+   href="https://github.com/unideb-advanced-software-engineering/26-spring-00-chocomarket/blob/main/diagram.likec4"
+   description="Go to the diagram's source code." /%}
+
+
+{% linkcard
+   title="LikeC4 documentation"
+   href="https://likec4.dev/tutorial/"
+   description="Go to the LikeC4 documentation." /%}
+
+## Group Work: Container Diagram
+
+Let's create a C4 Container diagram for our case study!
+
+## Homework
+
+Extend the existing C4 System Context diagram in LikeC4 format with a C4 Container diagram view.
+
+The diagram must remain in the group's GitHub repository, as follows:
+
+{% filetree %}
+- adr
+  - 01-architecture-style.md
+- ac.md
+- as.md
+- asr.md
+- **diagram.likec4**
+- esettanulmany.md
+- README.md
+- srs.doc
+{% /filetree %}
+
+Document the most important decisions in the form of ADRs!
