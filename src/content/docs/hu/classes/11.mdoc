@@ -1,0 +1,127 @@
+---
+title: "11: AI + Architektúra #1"
+description: "Vájbolás helyett dokumentáció."
+---
+
+## A hiányzó bevezetés
+
+### Az Agile Manifesto újra lecsap
+
+A félév végéhez közeledvén eljön a reflexió ideje: mit is tanultunk pontosan, mivel töltöttük az elmúlt néhány hetet? Ha felületesen tekintünk a tematikára, akkor összefoglalhatnánk annyival, hogy „dokumentációt gyártottunk”: ilyen Markdown fájlt, olyan diagramot.
+
+Ez a látásmód rögtön túlhaladottnak is ítéli a tárgyat. Idézzük fel az [Agile Manifesto](https://agilemanifesto.org/) állásfoglalását:
+
+- Individuals and interactions over processes and tools.
+- Working software over comprehensive documentation.
+- Customer collaboration over contract negotiation.
+- Responding to change over following a plan.
+
+A legtöbbször viszont a következő, kevésbé mémesíthető mondat marad le:
+
+> That is, while there is value in the items on the right, we value the items on the left more.
+
+Látszólag minden órán vétettünk a fentiek ellen: hétről hétre újabb és újabb eszközöket és folyamatokat ismertünk meg, melyekkel aztán mindent írtunk, csak működő szoftvert nem. Egyre csak terveztünk és terveztünk.
+
+Túlterveztük volna magunkat? Használható egyáltalán ez a tudás, vagy már évtizedekkel túlhaladott? Valójában az egész tárgy egy nagy antiminta?
+
+### Ez már a slim fit változat
+
+A fenti álláspont szándékosan sarkos: A dokumentációra úgy tekint, mint fáradságos papírmunkára, a tervezésre pedig mint ósdi ceremóniára. Arról nem is beszélve, hogy félreértelmezi az Agile Manifesto szavait is. Ugyanakkor pont ezért segít jobban megérteni, hogy mégis mi értelme volt a tanultaknak.
+
+#### Miért tervezzünk?
+
+Először idézzünk fel egy másik klasszikust!
+
+> Weeks of coding can save you hours of planning.
+
+Programozni, kódot írni hatalmas szórakozás. Ugyanakkor, ha mindezt pénzért tesszük, akkor általában elvárt, hogy legyen valami működő, hasznos végeredmény is. Ráadásul belátható időn belül. Ilyen, rendkívül szerencsétlen és ritka (haha) esetekben valamennyi tervezésre mindenképpen szükség van, kiváltképp architekturális szinten.
+
+Vegyük észre, hogy amennyiben előzetes tervezés nélkül látunk neki az implementációnak, valamilyen architektúra akkor is létre fog jönni. Ugyanakkor, annak az esélye, hogy ez az architektúra ideális, lényegében nulla. Ha pedig ez így van, akkor a nullánál miért ne adnánk magunknak egy picit nagyobb esélyt egy kis tervezéssel?
+
+A híres „responding to change over following a plan” jelmondat nem arról szól, hogy ne tervezzünk, mert a dolgok így is, úgy is megváltoznak, hanem arról, hogy a tervezés szintjén is készüljünk fel a változásra. Kiváltképp az architektúrát tekintve, melyről tudjuk, hogy igen drága módosítani. Ehhez kapcsolódik a [Last Responsible Moment](https://blog.codinghorror.com/the-last-responsible-moment/).
+
+#### Eszközök is kellenek
+
+Mostanra talán megegyeztünk abban, hogy az architekturális tervezés nélkülözhetetlen része a szoftverfejlesztésnek. Ha pedig ez így van, akkor a tervezési folyamatnak eszközökre is szüksége van.
+
+Na, de ácsi! És hol marad az „individuals and interactions over processes and tools”? Hát a „working software over comprehensive documentation”?
+
+Mindenekelőtt: Az Agile Manifesto az „X over Y” kinyilatkoztatásaival nem ítéli el az Y-t, csak preferálja az X-et. Tehát elismeri, hogy van értéke a dokumentációnak, csak preferálja a működő szoftvert.
+
+És itt fontos egy kis történelmi kitekintés, avagy, Babits mentén: „múlt nélkül nincs jövő”. A Manifesto születésének pillanatában a szoftverfejlesztés sok helyen egyet jelentett a vízesésmodell lomha és nehézkes dokumentációs folyamataival. A szoftver szinte csak mellékterméke volt a végeláthatatlan egyeztetéseknek és a sokszáz oldalas specifikációknak.
+
+Azok az eszközök, amelyeket a félév során tanultunk (minőségi jellemzők, ASR-ek, ADR, C4 modell) már az architekturális tervezés lecsupaszított, slim fit eszközei. Épp csak annyi keretet adnak, hogy ne random Markdown fájlokat és táblarajzokat készítsünk, de ne is vigye el a folyamat a fókuszt a legfontosabbról: a működő szoftverről.
+
+## De mi köze ennek az AI-hoz?
+
+Ebben feltehetően nagy szerepe van a marketingeseknek, de amikor mesterséges intelligenciával dolgozunk, akkor hajlamosak vagyunk rá úgy tekinteni, mint egy varázsgömbre, ami kitalálja a gondolatainkat, és pontosan azzal a kimenettel áll elő, amit mi szeretnénk. Amikor pedig ez nem így történik, akkor konkludáljuk, hogy ezek az eszközök bizony még alkalmatlanok, vagy rosszabb esetben magunkban keressük a hibát (hiszen mindenki más egész alkalmazásokat ír AI-val, legalábbis, elméletileg), mondván, hogy „skill issue”.
+
+Pedig a probléma gyökere nagyon egyszerű, csak felejtsük el a varázsgömböt, és tekintsünk úgy a mesterséges intelligenciára, mint egy új csapattársra a projekten. Gondoljunk bele: ha egy új csapattárs kezdene, annak is csak egy elvégzendő ticketet adnánk oda (vagy rosszabb esetben egy „fix this bug” promptot), avagy inkább először körbevezetnénk, hogy mi újság van ebben a projektben, (menő kifejezésekkel élve) onboardolnánk? Nyilvánvalóan az utóbbi!
+
+És itt ér össze az AI és az architekturális tervezés kimenete egy *happy little accident* formájában: ami eddig felesleges, porosodó dokumentációnak tűnt, az hirtelen az egyik legjobb eszköz arra, hogy új, gépi haverunk igazán hatékony társunkká váljon.
+
+Nem kell visszatérnünk a sokszáz oldalas, dagályos specifikációk világába. Ahogy az embereknek, úgy a gépnek is nehéz ezekkel dolgozni. Csupán azt kell felismernünk, hogy amit eddig mellékterméknek tekintettünk (ADR-ek, diagramok, use case-ek, lényegében bármilyen írásban rögzített projektismeret), az egy kapaszkodó és kontextus a mesterséges intelligencia számára.
+
+A mai cél tehát nem az, hogy „AI-val kódoljunk valamit”, hanem hogy megnézzük: hogyan lesz egy laza ötletből olyan specifikáció, architektúra és feladatterv, amely alapján egy AI-asszisztens már nem találgat, hanem dolgozni tud.
+
+Szóval vágjunk bele!
+
+## Coding Agents
+
+TBD
+
+## Esettanulmány: Campus Quest
+
+### Háttér
+
+Egy modern egyetemi campuson rengeteg olyan értékes hallgatói aktivitás történik, amely nem feltétlenül jelenik meg a hivatalos tanulmányi rendszerekben. Ezek az aktivitások sokszor fontosak az egyetemi élet szempontjából, de nehezen láthatók, nehezen mérhetők, és ritkán kapnak visszajelzést. Az egyetem ezért szeretne létrehozni egy játékosított közösségi platformot, a **Campus Questet**, amelyben a hallgatók különböző campushoz kapcsolódó küldetéseket teljesíthetnek.
+
+### Általános követelmények
+
+- A rendszer kísérleti jellegű, ezért az első verzió legyen egyszerű, gyorsan kipróbálható és könnyen módosítható.
+- A játékosítás nem válhat öncélúvá: a pontok, jelvények és ranglisták célja a részvétel ösztönzése és a visszajelzés, nem pedig a hallgatók túlzott versenyeztetése.
+- A hallgatói aktivitási adatok érzékenyek lehetnek, ezért fontos az adatvédelem, a láthatóság szabályozása és az auditálhatóság.
+- A küldetések, pontozási szabályok és jelvényfeltételek idővel változhatnak, ezért a rendszer tervezésénél számolni kell a későbbi módosításokkal.
+
+### Leírás
+
+A Campus Quest egy olyan platform, ahol a hallgatók különböző **küldetéseket** teljesíthetnek. Egy küldetés valamilyen egyetemi, közösségi, szakmai vagy önkéntes aktivitáshoz kapcsolódik.
+
+Példák küldetésekre:
+
+- „Vegyél részt egy kari nyílt napon önkéntesként.”
+- „Látogass el egy vendégelőadásra.”
+- „Vegyél részt egy hallgatói klub eseményén.”
+- „Segíts egy elsőéves hallgatónak eligazodni a campuson.”
+
+A küldetések teljesítéséért pontok járhatnak. Bizonyos feltételek teljesülése esetén a hallgatók jelvényeket is szerezhetnek, például közösségi segítségért, önkéntes munkáért, rendszeres részvételért vagy több különböző campusprogram kipróbálásáért.
+
+A rendszer ranglistát is vezethet, de ennek láthatóságát körültekintően kell megtervezni. Nem biztos, hogy minden hallgató szeretné nyilvánosan látni a saját pontszámát, és az sem biztos, hogy a túlzott verseny minden közösségi célt támogat.
+
+### Felhasználók
+
+- A hallgatók, akik küldetéseket böngésznek, teljesítéseket küldenek be, pontokat és jelvényeket gyűjtenek.
+- Az eseményszervezők, akik küldetéseket hozhatnak létre.
+- A jóváhagyók, akik bizonyos teljesítéseket elfogadhatnak vagy elutasíthatnak.
+- Az adminisztrátorok, akik kezelik a rendszer beállításait és a láthatósági szabályokat.
+
+### Követelmények
+
+- Lehessen küldetéseket létrehozni névvel, leírással, kategóriával, pontértékkel és érvényességi időszakkal.
+- A hallgatók küldetésteljesítéseket küldhessenek be rövid indoklással vagy igazoló hivatkozással.
+- A teljesítések állapota legyen beküldve, elfogadva, elutasítva vagy visszavonva.
+- Csak az elfogadott teljesítések után járjon pont.
+- A rendszer automatikusan oszthasson ki egyszerű jelvényeket, például az első teljesítésért vagy adott számú küldetés után.
+- A hallgatók megtekinthetik saját pontjaikat, teljesítéseiket és jelvényeiket.
+- Készüljön egyszerű ranglista, amely kikapcsolható vagy anonimizálható.
+- A jóváhagyói döntésekről készüljön naplóbejegyzés.
+- A rendszer első verziója webes felületen legyen használható.
+
+### Kiegészítések
+
+- Nem szükséges valódi egyetemi rendszerhez, beléptetőrendszerhez vagy eseménynaptárhoz integrálódni.
+- Távlati cél lehet fejlettebb jelvényszabályok, külső integrációk és több féléven átívelő hallgatói profilok kezelése.
+
+## Gemini CLI
+
+[https://geminicli.com/docs/get-started/](https://geminicli.com/docs/get-started/)
