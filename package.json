@@ -26,5 +26,8 @@
   },
   "devDependencies": {
     "likec4": "1.55.0"
+  },
+  "pnpm": {
+    "neverBuiltDependencies": []
   }
 }
